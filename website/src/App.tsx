@@ -2,21 +2,20 @@ import { AuthorsSection } from './authors';
 import { Home } from './routes/home';
 import { AuthorA } from './routes/authorA'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import './App.css'
+import { TopBar } from './TopBar';
 
 function App() {
 
   return (
     <>
-      
       <RouterProvider router={router}/>
-      
     </>
   )
 }
 
 const Layout = () => (
   <>
+    <TopBar />
     <AuthorsSection />
     <Outlet/>
   </>
@@ -32,19 +31,19 @@ const router = createBrowserRouter([
       errorElement: <Home/>
     },
     {
-      path: "/authors/francisco",
+      path: "/authors/67208",
       element: <AuthorA name={"Francisco Barreiras"} />
     },
     {
-      path: "/authors/tomas",
+      path: "/authors/67209",
       element: <AuthorA name={"Tomás Carvalho"} />
     },
     {
-      path: "/authors/miguel",
+      path: "/authors/67210",
       element: <AuthorA name={"Miguel Palma"} />
     },
     {
-      path: "/authors/alex",
+      path: "/authors/67211",
       element: <AuthorA name={"Alexandre Madeira"} />
     }
   ]

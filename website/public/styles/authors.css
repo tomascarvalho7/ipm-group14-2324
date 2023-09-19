@@ -1,0 +1,77 @@
+
+.authors-section {
+    background-color: #4f4d5f;
+    padding: 40px 0; /* Adjust the top and bottom padding as needed */
+    text-align: center;
+    width: 100%;
+  }
+  
+  .authors-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Use space-between to add spacing between cards */
+    margin: 0; /* Remove the margin to extend from edge to edge */
+    padding: 0 20%; /* Add horizontal padding to center content */
+  }
+  
+  .author-card {
+    background-color: #78729C;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50vh; /* Adjust the card width as needed */
+    aspect-ratio: 1 / 1;
+    text-align: center;
+    margin-right: 20px; /* Add margin between cards */
+  }
+  
+  .selected-card {
+    background-color: #9B8CEF;
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50vh; /* Adjust the card width as needed */
+    aspect-ratio: 1 / 1;
+    transform: scale(1.1);
+    text-align: center; 
+    margin-right: 20px;
+  }
+  
+  
+  .author-card:hover {
+    background-color: #9B8CEF;
+    transform: scale(1.1);
+    border-radius: 2px;
+    transition: 0.25s all ease-in-out;
+  }
+  
+  .selected-card:last-child, .author-card:last-child  {
+    margin-right: 0; /* Remove margin for the last card */
+  }
+  
+  .authors-container p {
+    color: #fff;
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .author-photo {
+    width: 80%; /* Adjust the photo size as needed */
+    height: 80%;
+    border-radius: 50%;
+  }
+  
+  .authorbox {
+    background-color: #78729C;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50vh;
+  }
+
+  .authorinfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
