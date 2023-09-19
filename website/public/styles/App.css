@@ -9,6 +9,7 @@
 }
 
 .topbar {
+  background-color: #353438;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -56,8 +56,9 @@
   }
   
   .author-photo {
-    width: 80%; /* Adjust the photo size as needed */
-    height: 80%;
+    width: 120px; /* Adjust the photo size as needed */
+    height: 120px;
+    object-fit: cover;
     border-radius: 50%;
   }
   
