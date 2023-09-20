@@ -1,8 +1,8 @@
-import { AuthorsSection } from './authors';
-import { Home } from './routes/home';
-import { AuthorA } from './routes/authorA'
+import { AuthorsSection } from './AuthorsSection';
+import { Author } from './routes/Author'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { TopBar } from './TopBar';
+import { Home } from './routes/home';
 
 function App() {
 
@@ -32,19 +32,19 @@ const router = createBrowserRouter([
     },
     {
       path: "/authors/67208",
-      element: <AuthorA name={"Francisco Barreiras"} />
+      element: <Author name={"Francisco Barreiras"} />
     },
     {
       path: "/authors/67209",
-      element: <AuthorA name={"Tomás Carvalho"} />
+      element: <Author name={"Tomás Carvalho"} />
     },
     {
       path: "/authors/67210",
-      element: <AuthorA name={"Miguel Palma"} />
+      element: <Author name={"Miguel Palma"} />
     },
     {
       path: "/authors/67211",
-      element: <AuthorA name={"Alexandre Madeira"} />
+      element: <Author name={"Alexandre Madeira"} />
     }
   ]
 }

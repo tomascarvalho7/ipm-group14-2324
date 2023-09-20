@@ -3,10 +3,10 @@ import { useNavigate, useLocation } from "react-router-dom"
 export function AuthorsSection() {
 
   const authors = [
-    { name: 'Francisco Barreiras', number: 67208, photo: '/assets/francisco.jpg' },
-    { name: 'Tomás Carvalho', number: 67209, photo: '/assets/tomas.jpg' },
-    { name: 'Miguel Palma', number: 67210, photo: '/assets/miguel.jpg' },
-    { name: 'Alexandre Madeira', number: 67211, photo: '/assets/alexandre.jpg' },
+    { name: 'Francisco Barreiras', number: 67208 },
+    { name: 'Tomás Carvalho', number: 67209 },
+    { name: 'Miguel Palma', number: 67210 },
+    { name: 'Alexandre Madeira', number: 67211 },
   ]
   
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export function AuthorsSection() {
       <div className="authors-container">
         {authors.map((author) => (
           <div className={getClass(author.number.toString())} key={author.number} onClick={() => handleClick(author.number)} >
-            <img src={author.photo} alt={author.name} className="author-photo" />
+            <img src={`/assets/${author.number}/photo.jpg`} alt={author.name} className="author-photo" />
             <p><b>{author.name}</b></p>
             <p>{author.number}</p>
           </div>
