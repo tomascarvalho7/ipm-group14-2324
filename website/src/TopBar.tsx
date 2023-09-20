@@ -6,7 +6,7 @@ export function TopBar() {
 
     return <div className="topbar">
         <div className="projectname" onClick={() => navigate("/", {replace: true})}>
-            Project name
+            SyncShop
         </div>
         <div className="groupnumber">Group 14</div>
     </div>

@@ -2,7 +2,7 @@ import { AuthorsSection } from './AuthorsSection';
 import { Author } from './routes/Author'
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import { TopBar } from './TopBar';
-import { Home } from './routes/home';
+import { Home } from './routes/Home';
 
 function App() {
 
@@ -31,24 +31,12 @@ const router = createBrowserRouter([
       errorElement: <Home/>
     },
     {
-      path: "/authors/67208",
-      element: <Author number={67208} />
+      path: "/authors/:number",
+      element: <Author />
     },
     {
-      path: "/authors/67209",
-      element: <Author number={67209} />
-    },
-    {
-      path: "/authors/67210",
-      element: <Author number={67210} />
-    },
-    {
-      path: "/authors/67211",
-      element: <Author number={67211} />
-    },
-    {
-      "path": "*",
-      "element": <Navigate to="/" />
+      path: "*",
+      element: <Navigate to="/" />
     }
   ]
 }
