@@ -24,7 +24,7 @@ O público-alvo da aplicação define-se por grupos de pessoas que partilhem uma
 
 Idade: 15-80 ??
 Género: Não aplicável
-Atributos principais: Viver num espaço comum
+Atributos principais: Viver num espaço partilhado
 
 
 ## Objetivo da nossa aplicação:
