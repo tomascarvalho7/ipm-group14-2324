@@ -1,14 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom"
+import { authors } from "./authors";
 
-export function AuthorsSection() {
-
-  const authors = [
-    { name: 'Francisco Barreiras', number: 67208 },
-    { name: 'Tomás Carvalho', number: 67209 },
-    { name: 'Miguel Palma', number: 67210 },
-    { name: 'Alexandre Madeira', number: 67211 },
-  ]
-  
+export function AuthorsSection() {  
   const navigate = useNavigate();
   const location = useLocation();
   const number = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)

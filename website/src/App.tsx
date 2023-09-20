@@ -1,6 +1,6 @@
 import { AuthorsSection } from './AuthorsSection';
 import { Author } from './routes/Author'
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import { TopBar } from './TopBar';
 import { Home } from './routes/home';
 
@@ -32,19 +32,23 @@ const router = createBrowserRouter([
     },
     {
       path: "/authors/67208",
-      element: <Author name={"Francisco Barreiras"} />
+      element: <Author number={67208} />
     },
     {
       path: "/authors/67209",
-      element: <Author name={"Tomás Carvalho"} />
+      element: <Author number={67209} />
     },
     {
       path: "/authors/67210",
-      element: <Author name={"Miguel Palma"} />
+      element: <Author number={67210} />
     },
     {
       path: "/authors/67211",
-      element: <Author name={"Alexandre Madeira"} />
+      element: <Author number={67211} />
+    },
+    {
+      "path": "*",
+      "element": <Navigate to="/" />
     }
   ]
 }

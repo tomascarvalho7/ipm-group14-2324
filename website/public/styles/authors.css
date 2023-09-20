@@ -23,6 +23,7 @@
     aspect-ratio: 1 / 1;
     text-align: center;
     margin-right: 20px; /* Add margin between cards */
+    transition: 0.25s all ease-in-out;
   }
   
   .selected-card {

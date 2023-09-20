@@ -8,6 +8,6 @@ export function TopBar() {
         <div className="projectname" onClick={() => navigate("/", {replace: true})}>
             Project name
         </div>
-        <div className="groupnumber">Group 21</div>
+        <div className="groupnumber">Group 14</div>
     </div>
   }
