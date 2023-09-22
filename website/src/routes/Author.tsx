@@ -41,8 +41,10 @@ export function Author() {
       </div>
 
       <div className="authorbox">
-        <h3>Individual tasks:</h3>
-        <a href={`/assets/${author?.number}/assignment1.pdf`} target="_blank">Assignment 1</a>
+        <h3>Individual Tasks</h3>
+        <a className="hyperlink" href={`/assets/${author?.number}/assignment1.pdf`} target="_blank"> 
+          <i className="bi bi-arrow-right-short"></i> Assignment 1
+        </a>
       </div>
 
       <div className="nav-arrow right-arrow" onClick={handleRightArrowClick}>

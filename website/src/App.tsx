@@ -2,7 +2,7 @@ import { AuthorsSection } from './AuthorsSection';
 import { Author } from './routes/Author'
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import { TopBar } from './TopBar';
-import { Home } from './routes/home';
+import { Home } from './routes/Home';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
 }
 
 const Layout = () => {
-  const [isTopScreenVisible, setTopScreenVisible] = useState(true);
+  const [isTopScreenVisible, setTopScreenVisible] = useState(!window.location.href.includes("authors"));
 
   const toggleScreenVisibility = () => {
     setTopScreenVisible(!isTopScreenVisible);
