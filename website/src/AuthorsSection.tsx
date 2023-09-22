@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { authors } from "./authors";
 
-export function AuthorsSection() {  
+export function AuthorsSection(props: {showInfo: () => void}) {  
   const navigate = useNavigate();
   const location = useLocation();
   const number = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
@@ -33,5 +33,7 @@ export function AuthorsSection() {
     } else {
       navigate("/", {replace: true});
     }
+
+    props.showInfo();
   }
 }

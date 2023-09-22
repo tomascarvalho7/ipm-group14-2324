@@ -1,4 +1,5 @@
 #root {
+  background-color: #353438;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -9,10 +10,10 @@
 }
 
 .topbar {
-  background-color: #353438;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 60%;
   align-items: center;
   padding: 20px 30px 20px 30px;
 }
@@ -29,4 +30,34 @@
   font-size: 24px;
   margin: 0;
   font-weight: 700;
+}
+
+
+.scrollable-two-screens {
+  height: 100vh; /* Set the height of the container to the viewport height */
+  position: relative;
+  overflow: hidden; /* Hide overflow content */
+}
+
+.top-screen, .bottom-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease; /* Smooth transition when switching screens */
+}
+
+.visible {
+  transform: translateY(0); /* Initially, top screen is visible */
+}
+
+.top-screen.hidden {
+  transform: translateY(-100%); /* Hide the top screen to the top */
+}
+
+.bottom-screen.hidden {
+  transform: translateY(100%); /* Hide the bottom screen to the bottom */
 }
