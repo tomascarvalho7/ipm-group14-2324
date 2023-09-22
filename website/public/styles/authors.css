@@ -1,104 +1,125 @@
 
 .authors-section {
-    background-color: #4f4d5f;
-    padding: 40px 0; /* Adjust the top and bottom padding as needed */
-    text-align: center;
-    width: 100%;
-  }
-  
-  .authors-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; /* Use space-between to add spacing between cards */
-    margin: 0; /* Remove the margin to extend from edge to edge */
-    padding: 0 20%; /* Add horizontal padding to center content */
-  }
-  
-  .author-card {
-    background-color: #78729C;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 50vh; /* Adjust the card width as needed */
-    aspect-ratio: 1 / 1;
-    text-align: center;
-    margin-right: 20px; /* Add margin between cards */
-    transition: 0.25s all ease-in-out;
-  }
-  
-  .selected-card {
-    background-color: #9B8CEF;
-    padding: 20px;
-    border-radius: 2px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 50vh; /* Adjust the card width as needed */
-    aspect-ratio: 1 / 1;
-    transform: scale(1.1);
-    text-align: center; 
-    margin-right: 20px;
-  }
-  
-  
-  .author-card:hover {
-    background-color: #9B8CEF;
-    transform: scale(1.1);
-    border-radius: 2px;
-    transition: 0.25s all ease-in-out;
-  }
-  
-  .selected-card:last-child, .author-card:last-child  {
-    margin-right: 0; /* Remove margin for the last card */
-  }
-  
-  .authors-container p {
-    color: #fff;
-    font-size: 18px;
-    margin: 0;
-  }
-  
-  .author-photo {
-    width: 120px; /* Adjust the photo size as needed */
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  .authorbox {
-    background-color: #78729C;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 50vh;
-  }
+  background-color: #4f4d5f;
+  padding: 40px 0; /* Adjust the top and bottom padding as needed */
+  text-align: center;
+  width: 100%;
+}
 
-  .authorinfo {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .nav-arrow {
-    position: absolute;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 50%;
-  }
-  
-  .left-arrow {
-    left: 10px;
-  }
-  
-  .right-arrow {
-    right: 10px;
-  }
-  
+.authors-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Use space-between to add spacing between cards */
+  margin: 0; /* Remove the margin to extend from edge to edge */
+  padding: 0 20%; /* Add horizontal padding to center content */
+}
+
+.author-card {
+  background-color: #78729C;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 50vh; /* Adjust the card width as needed */
+  aspect-ratio: 1 / 1;
+  text-align: center;
+  margin-right: 20px; /* Add margin between cards */
+  transition: 0.25s all ease-in-out;
+}
+
+.selected-card {
+  background-color: #9B8CEF;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 50vh; /* Adjust the card width as needed */
+  aspect-ratio: 1 / 1;
+  transform: scale(1.1);
+  text-align: center; 
+  margin-right: 20px;
+}
+
+.author-card:hover {
+  background-color: #9B8CEF;
+  transform: scale(1.1);
+  border-radius: 2px;
+  transition: 0.25s all ease-in-out;
+}
+
+.selected-card:last-child, .author-card:last-child  {
+  margin-right: 0; /* Remove margin for the last card */
+}
+
+.authors-container p {
+  color: #fff;
+  font-size: 18px;
+  margin: 0;
+}
+
+.author-photo {
+  width: 120px; /* Adjust the photo size as needed */
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* CSS for Author.tsx: */
+
+.name {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  font-size: 24px;
+  color: #fff;
+}
+
+.number {
+  position: absolute;
+  top: 40px;
+  right: 60px; /* Changed to right */
+  font-size: 18px;
+  color: #fff;
+}
+
+.author-container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorbox {
+  background-color: #78729C;
+  border-radius: 10px;
+  margin: 100px;
+  width: 75%;
+  padding: 20px;
+  height: 80%;
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+  font-size: 35px;
+  border-radius: 50%;
+}
+
+.left-arrow {
+  left: 8%;
+  align-self: flex-start;
+}
+
+.right-arrow {
+  right: 8%;
+  align-self: flex-end;
+}

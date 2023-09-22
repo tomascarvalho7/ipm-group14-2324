@@ -27,21 +27,27 @@ export function Author() {
   };
 
   return (
-    <div className="authorinfo">
+    <div className="author-container">
+      <div className="name">
+        <h1>{author?.name}</h1>
+      </div>
+
+      <div className="number">
+        <h1>{author?.number}</h1>
+      </div>
+
       <div className="nav-arrow left-arrow" onClick={handleLeftArrowClick}>
         <span><i className="bi bi-arrow-left-short"></i></span>
       </div>
 
-      <h1>{author?.name}</h1>
-  
       <div className="authorbox">
         <h3>Individual tasks:</h3>
         <a href={`/assets/${author?.number}/assignment1.pdf`} target="_blank">Assignment 1</a>
       </div>
-      
+
       <div className="nav-arrow right-arrow" onClick={handleRightArrowClick}>
         <span><i className="bi bi-arrow-right-short"></i></span>
       </div>
     </div>
-  )
+  );
 }
