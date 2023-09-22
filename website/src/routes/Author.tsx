@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { authors, getAuthor } from "../authors";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export function Author() {
   const params = useParams()
+  const navigate = useNavigate();
   const number = params["number"] ?? ""
   const author = getAuthor(parseInt(number))
 
@@ -15,14 +16,14 @@ export function Author() {
     let newNumber = parseInt(number) - 1;
     let newAuthorNumber = authors.find(author => author.number == newNumber)?.number ?? authors[authors.length - 1].number;
 
-    window.location.href = `/authors/${newAuthorNumber}`;
+    navigate(`/authors/${newAuthorNumber}`, {replace: true});
   };
 
   const handleRightArrowClick = () => {
     let newNumber = parseInt(number) + 1;
     let newAuthorNumber = authors.find(author => author.number == newNumber)?.number ?? authors[0].number;
 
-    window.location.href = `/authors/${newAuthorNumber}`;
+    navigate(`/authors/${newAuthorNumber}`, {replace: true});
   };
 
   return (
