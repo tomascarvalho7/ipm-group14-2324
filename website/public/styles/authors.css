@@ -72,8 +72,33 @@
   }
 
   .authorinfo {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+  
+  .nav-arrow {
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+  }
+  
+  .left-arrow {
+    left: 10px;
+  }
+  
+  .right-arrow {
+    right: 10px;
+  }
+  

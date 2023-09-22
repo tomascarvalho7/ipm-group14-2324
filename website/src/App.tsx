@@ -2,7 +2,7 @@ import { AuthorsSection } from './AuthorsSection';
 import { Author } from './routes/Author'
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import { TopBar } from './TopBar';
-import { Home } from './routes/Home';
+import { Home } from './routes/home';
 import { useEffect, useState } from 'react';
 
 function App() {
