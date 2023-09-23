@@ -65,7 +65,8 @@ const router = createBrowserRouter([
     },
     {
       path: "/authors/:number",
-      element: <Author />
+      element: <Author />,
+      errorElement: <Home/>
     },
     {
       path: "*",
