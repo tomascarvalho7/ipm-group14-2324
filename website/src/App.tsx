@@ -45,8 +45,14 @@ const Layout = () => {
       <div className={`top-screen ${isTopScreenVisible ? 'visible' : 'hidden'}`}>
         <TopBar showInfo={toggleScreenVisibility}/>
         <AuthorsSection showInfo={toggleScreenVisibility}/>
+        <div className="scroll-icon" onClick={toggleScreenVisibility}>
+          <i className="bi bi-chevron-compact-down" />
+        </div>
       </div>
       <div className={`bottom-screen ${isTopScreenVisible ? 'hidden' : 'visible'}`}>
+        <div className="scroll-icon" onClick={toggleScreenVisibility}>
+          <i className="bi bi-chevron-compact-up" />
+        </div>
         <Outlet />
       </div>
     </div>

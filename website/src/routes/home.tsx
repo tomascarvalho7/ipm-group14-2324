@@ -4,6 +4,7 @@
 */
 export function Home() {
   return <>
+
     <div id="title">
         <h1>Project Title</h1>
         <h2>Human-Computer Interaction p.2</h2>
