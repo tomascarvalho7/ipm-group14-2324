@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom"
-import { authors } from "./authors";
+import { authors } from "./constants";
 
 export function AuthorsSection(props: {showInfo: () => void}) {  
   const navigate = useNavigate();

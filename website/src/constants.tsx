@@ -8,3 +8,8 @@ export const authors = [
 export function getAuthor(number: number) {
     return authors.find(author => author.number === number);
 }
+
+export const stages = [
+    { number: "1" },
+    { number: "2" }
+]

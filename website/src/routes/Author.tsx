@@ -1,5 +1,5 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { authors, getAuthor } from "../authors";
+import { authors, getAuthor } from "../constants";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 

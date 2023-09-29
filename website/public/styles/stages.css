@@ -1,0 +1,51 @@
+.stagelist {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15vh;
+    background-color:  #4f4d5f;
+    
+}
+
+.stage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 10px;
+    width: 10vw;
+    height: 50%;
+    background-color: #78729C;
+    color: white;
+}
+
+.stage-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 20%;
+}
+
+.stage-name {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-size: 24px;
+    color: #fff;  
+}
+
+.stagebox {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: flex-start;
+    background-color: #78729C;
+    border-radius: 10px;
+    margin: 100px;
+    width: 75%;
+    padding: 40px;
+    height: 80%;
+}

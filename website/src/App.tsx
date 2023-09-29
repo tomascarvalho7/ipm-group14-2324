@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-rou
 import { TopBar } from './TopBar';
 import { Home } from './routes/Home';
 import { useEffect, useState } from 'react';
+import { StageList } from './StageList';
+import { StagePage } from './routes/StagePage';
 
 function App() {
 
@@ -44,6 +46,7 @@ const Layout = () => {
     <div className="scrollable-two-screens">
       <div className={`top-screen ${isTopScreenVisible ? 'visible' : 'hidden'}`}>
         <TopBar showInfo={toggleScreenVisibility}/>
+        <StageList showInfo={toggleScreenVisibility} />
         <AuthorsSection showInfo={toggleScreenVisibility}/>
         <div className="scroll-icon" onClick={toggleScreenVisibility}>
           <i className="bi bi-chevron-compact-down" />
@@ -73,6 +76,10 @@ const router = createBrowserRouter([
       path: "/authors/:number",
       element: <Author />,
       errorElement: <Home/>
+    },
+    {
+      path: "/stages",
+      element: <StagePage/>
     },
     {
       path: "*",
