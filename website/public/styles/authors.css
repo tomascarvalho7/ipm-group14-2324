@@ -1,6 +1,6 @@
 
 .authors-section {
-  background-color: #4f4d5f;
+  background-color: var(--bg-accent);
   padding: 40px 0; /* Adjust the top and bottom padding as needed */
   text-align: center;
   width: 100%;
@@ -15,7 +15,7 @@
 }
 
 .author-card {
-  background-color: #78729C;
+  background-color: var(--primary);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -27,7 +27,7 @@
 }
 
 .selected-card {
-  background-color: #9B8CEF;
+  background-color: var(--accent);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -39,7 +39,7 @@
 }
 
 .author-card:hover {
-  background-color: #9B8CEF;
+  background-color: var(--accent);
   transform: scale(1.1);
   border-radius: 2px;
   transition: 0.25s all ease-in-out;
@@ -95,7 +95,7 @@
   flex-direction: column;
   justify-content:flex-start;
   align-items: flex-start;
-  background-color: #78729C;
+  background-color: var(--primary);
   border-radius: 10px;
   margin: 100px;
   width: 75%;

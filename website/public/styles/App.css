@@ -1,8 +1,14 @@
 #root {
-  background-color: #353438;
   text-align: center;
   width: 100%;
   height: 100%;
+
+  --primary: #2E7D44;
+  --accent: #21AC49;
+  --secondary: #A89780;
+  --bg: #2F2F2F;
+  --bg-accent: #3E3E3E;
+  --text-color: #fff;
 }
 
 .card {
@@ -34,6 +40,7 @@
 
 
 .scrollable-two-screens {
+  background-color: var(--bg);
   height: 100vh; /* Set the height of the container to the viewport height */
   position: relative;
   overflow: hidden; /* Hide overflow content */
