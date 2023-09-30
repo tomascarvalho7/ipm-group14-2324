@@ -1,21 +1,32 @@
-import { useNavigate } from "react-router-dom";
-import { Stage } from "./Stage";
-import { stages } from "./constants";
+import { useState } from "react";
 
 export function StageList(props: { showInfo: () => void; }) {
-  const navigate = useNavigate();
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
-  function handleStageClick(stageNr: string) {
-    const link = `/stages/#stage${stageNr}`;
-
-    navigate(link, { replace: true });
+  function handleStageClick(stageNr: number) {
     props.showInfo();
+
+    // Cancel any existing timeout
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+
+    // Set a new timeout to navigate after 500 milliseconds
+    const newTimeoutId = setTimeout(() => {
+      window.location.hash = `#stage${stageNr}`;
+    }, 500);
+
+    // Store the new timeout ID
+    setTimeoutId(newTimeoutId);
   }
+
 
   return (
     <div className="stagelist">
-      {stages.map((stageNr) => (
-        <Stage key={stageNr.number} stageNr={stageNr.number} onClick={() => handleStageClick(stageNr.number)} />
+      {[1, 2, 3, 4].map((stageNr) => (
+        <div key={stageNr} className="stage" onClick={() => handleStageClick(stageNr)}>   
+          Stage {stageNr}
+        </div>
       ))}
     </div>
   );

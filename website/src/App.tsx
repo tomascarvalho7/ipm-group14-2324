@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-rou
 import { TopBar } from './TopBar';
 import { useEffect, useState } from 'react';
 import { StageList } from './StageList';
-import { StagePage } from './routes/StagePage';
 import { Home } from './routes/home';
 
 function App() {
@@ -23,24 +22,34 @@ const Layout = () => {
     setTopScreenVisible(!isTopScreenVisible);
   };
 
-  const handleScroll = (event: { deltaY: number; }) => {
-    if (event.deltaY > 0 && isTopScreenVisible) {
-      // Scrolling down from the top screen to the bottom screen
-      toggleScreenVisibility();
-    } else if (event.deltaY < 0 && !isTopScreenVisible) {
-      // Scrolling up from the bottom screen to the top screen
-      toggleScreenVisibility();
+  const handleScroll = (event: WheelEvent) => {
+    const bottomScreen = document.querySelector(".bottom-screen")
+
+    if (bottomScreen) {
+      const isAtTopOfBottomScreen = 
+        bottomScreen.getBoundingClientRect().top === 0
+
+      if (event.deltaY > 0 && isTopScreenVisible) {
+        // Scrolling down from the top screen to the bottom screen
+        event.preventDefault()
+        toggleScreenVisibility()
+          
+      } else if (event.deltaY < 0 && !isTopScreenVisible && isAtTopOfBottomScreen) {
+        // Scrolling up from the bottom screen to the top screen
+        event.preventDefault()
+        window.location.hash = ""
+        toggleScreenVisibility()
+      }
     }
   };
 
   useEffect(() => {
-    window.addEventListener('wheel', handleScroll);
+    window.addEventListener('wheel', handleScroll, { passive: false });
 
     return () => {
       window.removeEventListener('wheel', handleScroll);
     };
   }, [isTopScreenVisible]);
-
 
   return (
     <div className="scrollable-two-screens">
@@ -76,10 +85,6 @@ const router = createBrowserRouter([
       path: "/authors/:number",
       element: <Author />,
       errorElement: <Home/>
-    },
-    {
-      path: "/stages",
-      element: <StagePage/>
     },
     {
       path: "*",

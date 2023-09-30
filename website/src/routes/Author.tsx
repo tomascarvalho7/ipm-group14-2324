@@ -12,6 +12,8 @@ export function Author() {
 
   if (!author) return <Navigate to="/" />
 
+  document.title = `SyncShop | ${author.name}`
+
   const handleLeftArrowClick = () => {
     let newNumber = parseInt(number) - 1;
     let newAuthorNumber = authors.find(author => author.number == newNumber)?.number ?? authors[authors.length - 1].number;
