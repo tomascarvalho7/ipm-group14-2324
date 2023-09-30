@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function StageList(props: { showInfo: () => void; }) {
+  const navigate = useNavigate();
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
   function handleStageClick(stageNr: number) {
+    navigate(`/`)
     props.showInfo();
 
     // Cancel any existing timeout
@@ -13,7 +16,7 @@ export function StageList(props: { showInfo: () => void; }) {
 
     // Set a new timeout to navigate after 500 milliseconds
     const newTimeoutId = setTimeout(() => {
-      window.location.hash = `#stage${stageNr}`;
+      window.location.href = `/#stage${stageNr}`;
     }, 500);
 
     // Store the new timeout ID
