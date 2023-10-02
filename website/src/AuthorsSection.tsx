@@ -20,6 +20,7 @@ export function AuthorsSection(props: {showInfo: () => void}) {
           </div>
         ))}
       </div>
+      <div className="gradient"/>
     </div>
   )
 

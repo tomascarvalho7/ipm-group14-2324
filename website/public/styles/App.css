@@ -1,14 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 #root {
   text-align: center;
   width: 100%;
   height: 100%;
+  font-family: 'Poppins';
 
-  --primary: #2E7D44;
-  --accent: #21AC49;
-  --secondary: #A89780;
+  --primary: #338044;
+  --accent: #994D83;
+  --secondary: rgb(161, 117, 91);
+  --darker: #202020;
   --bg: #2F2F2F;
   --bg-accent: #3E3E3E;
-  --text-color: #fff;
+  --text-color: #EDECEC;
+  
 }
 
 .card {
@@ -25,14 +30,14 @@
 }
 
 .projectname {
-  color: #fff;
+  color: var(--text-color);
   font-size: 32px;
   margin: 0;
   font-weight: 700;
 }
 
 .groupnumber {
-  color: #fff;
+  color: var(--text-color);
   font-size: 24px;
   margin: 0;
   font-weight: 700;
@@ -53,6 +58,10 @@
   align-items: center;
   justify-content: space-around;
   transition: transform 0.5s ease; /* Smooth transition when switching screens */
+}
+
+.bottom-screen {
+  height: 100%;
 }
 
 .top-screen {
@@ -77,5 +86,5 @@
 }
 
 .home {
-  color: #fff;
+  color: var(--text-color);
 }

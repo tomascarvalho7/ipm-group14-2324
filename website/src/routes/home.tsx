@@ -1,21 +1,40 @@
 
-function Stage(props: { stageNr: number }) {
+function Stage(props: { stageNr: number, description: string }) {
+  const {stageNr, description } = props;
   return (
-    <div id={`stage${props.stageNr}`} className="stage-container">
-      <div className="stage-name">
-        <h1>Stage {props.stageNr}</h1>
+    <div id={`stage${stageNr}`} className="stage-container">
+     
+      <div className="stage-label">
+        <div className="stage-name">{"Stage " + stageNr} </div>
+        <div className="stage-description">{description} </div>
       </div>
 
       
 
       <div className="stagebox">
-        <h3>Stage documents</h3>
-      <a className="hyperlink" href={`/assets/reports/stage${props.stageNr}.pdf`} target="_blank"> 
-          <i className="bi bi-arrow-right-short" />Report
-      </a>
+          <div className="stage-img">
+            <i className="bi bi-file-earmark-pdf-fill bi-10x"></i>
+          </div>
+          <a className="hyperlink" href={`/assets/reports/stage${props.stageNr}.pdf`} target="_blank">
+              <div className="stage-link">
+                  <i className="bi bi-download"></i>
+                  <div className="link-text">Report</div> 
+              </div>
+          </a>
+      
       </div>
     </div>
-  )
+  );
+}
+
+function ContentItem(props: {element: JSX.Element}) {
+  const { element } = props;
+  return (
+    <div className="content-item">
+      <div className="divider" />
+        {element}
+      </div>
+  );
 }
 
 /**
@@ -31,10 +50,9 @@ export function Home() {
         <h2>Human-Computer Interaction p.2</h2>
       </div>
 
-      <Stage stageNr={1} />
-      <Stage stageNr={2} />
-      <Stage stageNr={3} />
-      <Stage stageNr={4} />
+      <div className="content-list">
+        <ContentItem element={ <Stage stageNr={1} description="Project Proposal"/> }  />
+      </div>
       
     </div>
   )
