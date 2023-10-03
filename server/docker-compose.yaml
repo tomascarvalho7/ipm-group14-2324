@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  # The service running the database
+  db:
+    container_name: db
+    hostname: db
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-db
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=changeit
+      - POSTGRES_DB=db
+    ports:
+      - 5432:5432
+  # The service running the server
+  # Can be scaled up
+  spring-service:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-spring
+    environment:
+      PORT: 8080
+      POSTGRES_URI: "jdbc:postgresql://db:5432/db?user=dbuser&password=changeit"
+      AUTH0_DOMAIN: "dev-l5ictxwo2yhdgh0p.us.auth0.com"
+    depends_on:
+      - db
+
+  # The service running the load-balancer
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-nginx
+    ports:
+      - 8080:8080
+    depends_on:
+      - spring-service
