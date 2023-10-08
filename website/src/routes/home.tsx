@@ -52,6 +52,7 @@ export function Home() {
 
       <div className="content-list">
         <ContentItem element={ <Stage stageNr={1} description="Project Proposal"/> }  />
+        <ContentItem element={ <Stage stageNr={2} description="User and Task Analysis"/> }  />
       </div>
       
     </div>
