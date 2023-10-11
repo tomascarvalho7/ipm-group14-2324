@@ -14,10 +14,10 @@ import syncshop.service.UserService
 import java.util.*
 
 @RestController
-@RequestMapping(Uris.BASE_PATH)
+@RequestMapping(Uris.User.USERS)
 class UserController(private val service: UserService) {
 
-    @GetMapping(Uris.User.USER)
+    @GetMapping("/")
     fun user(@PathVariable userId: UUID): ResponseEntity<*> =
         service.user(userId).fold(
             ifRight = { value ->
