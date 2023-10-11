@@ -77,7 +77,7 @@
 }
 
 .bottom-screen.hidden {
-  transform: translateY(100%); /* Hide the bottom screen to the bottom */
+  transform: translateY(120%); /* Hide the bottom screen to the bottom */
 }
 
 .scroll-icon {
