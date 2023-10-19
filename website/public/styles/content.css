@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 20px 10px;
+  padding: 100px 10px;
   position: relative;
 }
 
@@ -21,4 +21,8 @@
   align-self: stretch;
   border-top: 5px solid var(--primary);
   border-radius: 5px;
+}
+
+.home {
+  color: var(--text-color);
 }

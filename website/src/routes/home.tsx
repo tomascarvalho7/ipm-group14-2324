@@ -1,3 +1,4 @@
+import { Boarding } from "./Boarding"
 
 function Stage(props: { stageNr: number, description: string }) {
   const {stageNr, description } = props;
@@ -45,12 +46,10 @@ export function Home() {
 
   return (
     <div className="home">
-      <div id="title">
-        <h1>SyncShop</h1>
-        <h2>Human-Computer Interaction p.2</h2>
-      </div>
+      
 
       <div className="content-list">
+        <Boarding/>
         <ContentItem element={ <Stage stageNr={1} description="Project Proposal"/> }  />
         <ContentItem element={ <Stage stageNr={2} description="User and Task Analysis"/> }  />
       </div>
@@ -58,3 +57,10 @@ export function Home() {
     </div>
   )
 }
+
+/*
+<div id="title">
+        <h1>SyncShop</h1>
+        <h2>Human-Computer Interaction p.2</h2>
+      </div>
+*/

@@ -61,7 +61,7 @@
 }
 
 .bottom-screen {
-  height: 100%;
+  height: fit-content;
 }
 
 .top-screen {
@@ -77,14 +77,10 @@
 }
 
 .bottom-screen.hidden {
-  transform: translateY(120%); /* Hide the bottom screen to the bottom */
+  transform: translateY(100%); /* Hide the bottom screen to the bottom */
 }
 
 .scroll-icon {
   font-size: 50px; /* Adjust the icon size as needed */
   color: #717171;
-}
-
-.home {
-  color: var(--text-color);
 }
