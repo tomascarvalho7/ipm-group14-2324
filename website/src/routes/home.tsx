@@ -52,6 +52,7 @@ export function Home() {
         <Boarding/>
         <ContentItem element={ <Stage stageNr={1} description="Project Proposal"/> }  />
         <ContentItem element={ <Stage stageNr={2} description="User and Task Analysis"/> }  />
+        <ContentItem element={ <Stage stageNr={3} description="First Prototype"/> }  />
       </div>
       
     </div>

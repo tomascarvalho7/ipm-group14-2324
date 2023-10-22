@@ -20,7 +20,7 @@ export const Boarding = () => {
         
         <div className="boarding-download">
           <button className="boarding-button">
-            <div className="download-label">Download</div>
+            <div className="download-label">Available Soon</div>
           </button>
           <div className="description-download">for android phones.</div>
         </div>
