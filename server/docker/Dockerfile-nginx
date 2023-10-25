@@ -1,9 +1,0 @@
-FROM nginx
-
-USER root
-
-WORKDIR /etc/nginx
-
-COPY docker/nginx/nginx.conf ./
-
-EXPOSE 8080
