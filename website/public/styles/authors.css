@@ -95,7 +95,7 @@
   top: 40px;
   right: 60px;
   font-size: 18px;
-  color: var(--text-color);;
+  color: var(--text-color);
 }
 
 .author-container {
@@ -113,11 +113,16 @@
   flex-direction: column;
   justify-content:flex-start;
   align-items: flex-start;
-  background-color: var(--primary);
+  background-color: var(--bg);
+  border: 2px solid var(--primary);
   border-radius: 10px;
   width: 75%;
   padding: 40px;
   height: 50%;
+}
+
+.task-box-text {
+  color: var(--text-color);
 }
 
 .nav-arrow {
@@ -146,13 +151,14 @@
 }
 
 .hyperlink {
+  align-self: flex-start;
   padding-top: 20px;
-  color: #2b2b2b;
+  color: var(--text-color);
   text-decoration: none;
   font-size: larger;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .hyperlink:hover {
-  color: white;
+  color: var(--primary);
 }

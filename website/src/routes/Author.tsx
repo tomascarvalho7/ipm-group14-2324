@@ -43,7 +43,7 @@ export function Author() {
       </div>
 
       <div className="authorbox">
-        <h3>Individual Tasks</h3>
+        <h3 className="task-box-text">Individual Tasks</h3>
         <a className="hyperlink" href={`/assets/${author?.number}/assignment1.pdf`} target="_blank"> 
           <i className="bi bi-arrow-right-short"></i> Assignment 1
         </a>
