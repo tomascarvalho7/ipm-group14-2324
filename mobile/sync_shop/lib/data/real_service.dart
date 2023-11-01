@@ -1,6 +1,6 @@
 
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:sync_shop/utils.dart';
+import 'package:sync_shop/config.dart';
 
 class RealService {
 
