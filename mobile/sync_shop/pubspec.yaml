@@ -85,6 +85,9 @@ flutter:
            weight: 600
          - asset: fonts/Poppins-Light.ttf
            weight: 400
+
+  assets:
+    - assets/SyncShopIcon.png
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
