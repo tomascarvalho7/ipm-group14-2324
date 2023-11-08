@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sync_shop/presentation/utils/green_button.dart';
+import 'package:sync_shop/presentation/utils/logo.dart';
+
+import '../utils/return_button.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -25,16 +29,9 @@ class CategoriesScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      appTitle(),
+                      logo(),
                       const SizedBox(width: 75),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFF2E7D44),
-                          shape: OvalBorder(),
-                        ),
-                      )
+                      returnButton()
                     ],
                   ),
                   const Text(
@@ -55,38 +52,12 @@ class CategoriesScreen extends StatelessWidget {
                 child: categories()
             ),
             const SizedBox(height: 75),
-            confirmButton(),
+            greenButton(),
           ],
         ),
       );
 
-  Widget appTitle() => const Row(
-    mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-    Text(
-    'Sync',
-    style: TextStyle(
-      color: Color(0xFF2E7D44),
-      fontSize: 40,
-      fontFamily: 'Poppins',
-      fontWeight: FontWeight.w600,
-      height: 0,
-    ),
-  ),
-  Text(
-  'Shop',
-  style: TextStyle(
-  color: Color(0xFFEADDD7),
-  fontSize: 40,
-  fontFamily: 'Poppins',
-  fontWeight: FontWeight.w600,
-  height: 0,
-  )
-  )
-  ]
-  );
+
 
   Widget shapedBox(double width, double height, Widget? child) => Container(
     width: width,
@@ -100,31 +71,6 @@ class CategoriesScreen extends StatelessWidget {
   );
 
   Widget category(double width, double height) => shapedBox(width, height, null);
-
-  Widget confirmButton() => Container(
-    width: double.infinity,
-    padding: const EdgeInsets.symmetric(vertical: 25),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        shapedBox(
-            250,
-            75,
-            const Text(
-              'Confirm',
-              style: TextStyle(
-                color: Color(0xFF2E7D44),
-                fontSize: 40,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-              ),
-            )
-        )
-      ],
-    ),
-  );
 
   Widget categories() => Column(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
