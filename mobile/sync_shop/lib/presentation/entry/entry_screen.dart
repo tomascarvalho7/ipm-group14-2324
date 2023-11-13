@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_shop/presentation/entry/rectangular_button.dart';
+import 'package:sync_shop/presentation/utils/rectangular_button.dart';
 
 class EntryScreen extends StatelessWidget {
   const EntryScreen({super.key});

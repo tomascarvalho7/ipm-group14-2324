@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_shop/presentation/entry/entry_screen.dart';
+import 'package:sync_shop/presentation/new_product.dart/new_product_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const DefaultTextStyle(style: TextStyle(), child: EntryScreen()));
+        home: const DefaultTextStyle(
+            style: TextStyle(), child: NewProcuctScreen()));
   }
 }
 
