@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_shop/presentation/categories/categories_screen.dart';
+import 'package:sync_shop/presentation/entry/entry_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      color: Colors.transparent,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: DefaultTextStyle(
-        style: TextStyle(),
-        child: CategoriesScreen()
-      )
-    );
+        title: 'Flutter Demo',
+        color: Colors.transparent,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const DefaultTextStyle(style: TextStyle(), child: EntryScreen()));
   }
 }
 
