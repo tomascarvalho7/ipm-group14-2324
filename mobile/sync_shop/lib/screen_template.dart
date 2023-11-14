@@ -4,6 +4,7 @@ import 'package:sync_shop/presentation/utils/logo.dart';
 Widget buildScreenTemplateWidget(
         BuildContext context, String title, List<Widget> childWidgets) =>
     Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.all(10),
@@ -20,23 +21,25 @@ Widget buildScreenTemplateWidget(
                           children: [
                             Container(
                               margin: const EdgeInsets.all(0),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.arrow_circle_left_outlined,
                                 size: 40,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                             const SizedBox(width: 10),
                             logo()
                           ],
                         ),
-                        const Icon(
+                        Icon(
                           Icons.more_horiz,
                           size: 40,
+                          color: Theme.of(context).colorScheme.secondary,
                         )
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 50),
+                      margin: const EdgeInsets.only(top: 64),
                       child: Text(
                         title,
                         style: const TextStyle(

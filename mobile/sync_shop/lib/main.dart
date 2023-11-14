@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:sync_shop/presentation/entry/entry_screen.dart';
-import 'package:sync_shop/presentation/new_product/new_product_screen.dart';
-import 'package:sync_shop/presentation/task_list_screen/task_list_screen.dart';
+import 'package:sync_shop/app-theme.dart';
+import 'package:sync_shop/presentation/list_selection/list_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        color: Colors.transparent,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const DefaultTextStyle(
-            style: TextStyle(), child: TaskListScreen()));
+        title: 'Sync Shop',
+        theme: syncShopLightTheme,
+        darkTheme: syncShopDarkTheme,
+        home: ListSelectionScreen());
   }
 }
 
