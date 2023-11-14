@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_shop/presentation/new_product.dart/priority_selector.dart';
+import 'package:sync_shop/presentation/new_product/priority_selector.dart';
 import 'package:sync_shop/presentation/utils/rectangular_button.dart';
 import 'package:sync_shop/presentation/utils/text_input.dart';
 import 'package:sync_shop/screen_template.dart';

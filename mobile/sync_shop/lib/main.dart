@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sync_shop/presentation/entry/entry_screen.dart';
-import 'package:sync_shop/presentation/new_product.dart/new_product_screen.dart';
+import 'package:sync_shop/presentation/new_product/new_product_screen.dart';
+import 'package:sync_shop/presentation/task_list_screen/task_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const DefaultTextStyle(
-            style: TextStyle(), child: NewProcuctScreen()));
+            style: TextStyle(), child: TaskListScreen()));
   }
 }
 
