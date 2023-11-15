@@ -34,9 +34,10 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
               itemCount: 5,
               itemBuilder: (context, index) {
                 return ListItem(
+                  onClick: () {}, //TODO fazer a navegação para a lista
                   imageUrl: 'https://media.discordapp.net/attachments/801462552709038113/1165715383970439188/Screenshot_20231022_191601_Instagram.jpg?ex=65638b8d&is=6551168d&hm=debf91f881ef03042c5492b3589bfc477ff7b1d40dd6a042b613c080e6304dc7&=&width=683&height=662',
                   text: 'Test',
-                  backgroundColor: Theme.of(context).colorScheme.secondary, // Set your desired background color
+                  backgroundColor: Theme.of(context).colorScheme.surface, // Set your desired background color
                 );
               },
             ),

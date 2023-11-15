@@ -23,6 +23,7 @@ class ActionPopup extends StatelessWidget {
       left: 0,
       right: 0,
       child: AnimatedContainer(
+        clipBehavior: Clip.hardEdge,
         duration: const Duration(milliseconds: 200),
         height: isPopupVisible ? MediaQuery.of(context).size.height * 0.3 : 0,
         width: MediaQuery.of(context).size.width,
@@ -46,7 +47,7 @@ class ActionPopup extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 16, color: Colors.black), //TODO change to theme
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.secondary,

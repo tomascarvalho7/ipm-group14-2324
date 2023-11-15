@@ -16,7 +16,7 @@ Widget buildClickableTextWidget(
             .bodySmall
             ?.copyWith(
             fontSize: 15,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.surface,
             decoration: TextDecoration.underline
         ),
       ),

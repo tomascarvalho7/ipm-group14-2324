@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:sync_shop/presentation/sign-up/clickable_text.dart';
-import 'package:sync_shop/presentation/sign-up/confirm_sign_in.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sync_shop/data/real_service.dart';
+import 'package:sync_shop/presentation/auth/utils/clickable_text.dart';
+import 'package:sync_shop/presentation/auth/utils/confirm_button.dart';
+import 'package:sync_shop/presentation/background/background.dart';
 
-class SignUpScreen extends StatefulWidget {
+class LogInScreen extends StatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _LogInScreenState createState() => _LogInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
+class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -16,78 +19,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+  RealService services = Provider.of<RealService>(context, listen: false);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(top: 50),
-                child: Text(
-                    'Sign Up',
-                    style: Theme.of(context).textTheme.titleLarge?.
-                    copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 64
-                    )
-                ),
+      body: Background(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 50),
+              child: Text(
+                  'SyncShop',
+                  style: Theme.of(context).textTheme.titleLarge?.
+                  copyWith(
+                      color: Theme.of(context).colorScheme.surface,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 64
+                  )
               ),
-              Align(
+            ),
+            Align(
                 alignment: const Alignment(0.0, 0.7),
                 child: Wrap(
                   direction: Axis.vertical,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                  SizedBox(
-                      width: 303,
-                      height: 70,
-                      child: TextField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Theme.of(context).colorScheme.secondary,
-                          hintText: 'name...',
-                          hintStyle: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontSize: 15, color: Colors.black),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary,
-                              width: 2,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                        maxLines: 1,
-                        textAlignVertical: TextAlignVertical.center,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        textAlign: TextAlign.start,
-                        cursorColor: Theme.of(context).colorScheme.background,
-                        cursorWidth: 2.0,
-                      ),
-                    ),
-                  SizedBox(
+                    SizedBox(
                       width: 303,
                       height: 70,
                       child: TextField(
                         controller: _emailController,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Theme.of(context).colorScheme.secondary,
+                          fillColor: Theme.of(context).colorScheme.surface,
                           hintText: 'e-mail...',
                           hintStyle: Theme.of(context)
                               .textTheme
@@ -121,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         cursorWidth: 2.0,
                       ),
                     ),
-                  SizedBox(
+                    SizedBox(
                       width: 303,
                       height: 70,
                       child: TextField(
@@ -142,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           filled: true,
-                          fillColor: Theme.of(context).colorScheme.secondary,
+                          fillColor: Theme.of(context).colorScheme.surface,
                           hintText: 'password...',
                           hintStyle: Theme.of(context)
                               .textTheme
@@ -177,21 +143,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    buildConfirmSignInWidget(
-                    context,
-                        () {},
-                    'Sign Up',
-                  ),
-                  const SizedBox(height: 10,),
-                  buildClickableTextWidget(
-                    context,
-                        () {},
-                    "Don't have an account?\nGo back.",
-                  ),
-                ],
-              )
-              )],
-          ),
+                    buildConfirmButtonWidget(
+                      context,
+                          () {
+                        services.logIn(
+                            _emailController.value.text,
+                            _passwordController.value.text
+                        ).then((value) =>
+                            context.go("/lists")
+                        );
+                      },
+                      'Log In',
+                    ),
+                    const SizedBox(height: 10,),
+                    buildClickableTextWidget(
+                      context,
+                          () {
+                            context.go("/");
+                          },
+                      "Don't have an account?\nGo back.",
+                    ),
+                  ],
+                )
+            )],
+        ),
+      )
     );
   }
 }
