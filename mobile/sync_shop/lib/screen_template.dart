@@ -3,60 +3,69 @@ import 'package:sync_shop/presentation/background/background.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
 
 Widget buildScreenTemplateWidget(
-        BuildContext context, String title, List<Widget> childWidgets) =>
-    Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: SafeArea(
+  BuildContext context,
+  String title,
+  List<Widget> childWidgets, {
+  bool showBackButton = true,
+  bool showSettingsButton = true,
+}) {
+  ColorScheme colorScheme = Theme.of(context).colorScheme;
+  return Scaffold(
+    backgroundColor: colorScheme.background,
+    body: SafeArea(
         child: Background(
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
                 children: [
-                  Stack(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(0),
-                                child: Icon(
+                          showBackButton
+                              ? Icon(
                                   Icons.arrow_circle_left_outlined,
                                   size: 40,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              logo()
-                            ],
-                          ),
-                          Icon(
-                            Icons.more_horiz,
-                            size: 40,
-                            color: Theme.of(context).colorScheme.secondary,
-                          )
+                                  color: colorScheme.surface,
+                                )
+                              : Container(),
+                          showBackButton
+                              ? const SizedBox(width: 10)
+                              : Container(),
+                          logo()
                         ],
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 64),
-                        child: Text(
-                          title,
-                          style: const TextStyle(
-                            color: Color(0xFFA89780),
-                            fontSize: 30,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
+                      showSettingsButton
+                          ? Icon(
+                              Icons.more_horiz,
+                              size: 40,
+                              color: colorScheme.surface,
+                            )
+                          : Container(),
                     ],
                   ),
-                  Expanded(child: Stack(children: childWidgets)),
-                ]),
-          ),
-        )
+                  Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: colorScheme.secondary,
+                        fontSize: 30,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(child: Stack(children: childWidgets)),
+            ]),
       ),
-    );
+    )),
+  );
+}

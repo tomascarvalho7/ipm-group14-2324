@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sync_shop/app-theme.dart';
 import 'package:sync_shop/presentation/list_selection/list_screen.dart';
+import 'package:sync_shop/presentation/new_product/new_product_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Sync Shop',
         theme: syncShopLightTheme,
         darkTheme: syncShopDarkTheme,
-        home: ListSelectionScreen());
+        home: NewProcuctScreen());
   }
 }
 

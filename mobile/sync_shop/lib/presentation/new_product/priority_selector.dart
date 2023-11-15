@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 
-class PrioritySelector extends StatefulWidget {
-  const PrioritySelector({super.key});
+class PrioritySelector extends StatelessWidget {
+  const PrioritySelector({
+    super.key,
+    required this.selectedPriority,
+    required this.onChanged,
+  });
 
-  @override
-  State<PrioritySelector> createState() => _PrioritySelectorState();
-}
-
-class _PrioritySelectorState extends State<PrioritySelector> {
-  int selectedPriority = 0; // 0: Low, 1: Medium, 2: High
+  final int selectedPriority;
+  final void Function(int) onChanged;
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Priority',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
+              color: colorScheme.onPrimary,
             ),
           ),
           const SizedBox(height: 10),
@@ -30,6 +32,7 @@ class _PrioritySelectorState extends State<PrioritySelector> {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
+              color: colorScheme.onPrimary,
               border: Border.all(
                 color: Colors.black,
               ),
@@ -41,37 +44,31 @@ class _PrioritySelectorState extends State<PrioritySelector> {
                   color: Colors.green,
                   selected: selectedPriority == 0,
                   onPressed: () {
-                    setState(() {
-                      selectedPriority = 0;
-                    });
+                    onChanged(0);
                   },
                 ),
                 PriorityCircle(
                   color: Colors.yellow,
                   selected: selectedPriority == 1,
                   onPressed: () {
-                    setState(() {
-                      selectedPriority = 1;
-                    });
+                    onChanged(1);
                   },
                 ),
                 PriorityCircle(
                   color: Colors.red,
                   selected: selectedPriority == 2,
                   onPressed: () {
-                    setState(() {
-                      selectedPriority = 2;
-                    });
+                    onChanged(2);
                   },
                 ),
               ],
             ),
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Low'),
-              Text('High'),
+              Text('Low', style: TextStyle(color: colorScheme.onPrimary)),
+              Text('High', style: TextStyle(color: colorScheme.onPrimary)),
             ],
           )
         ],
@@ -93,6 +90,7 @@ class PriorityCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -102,7 +100,7 @@ class PriorityCircle extends StatelessWidget {
           shape: BoxShape.circle,
           color: color,
           border: Border.all(
-            color: selected ? Colors.black : Colors.transparent,
+            color: selected ? colorScheme.background : Colors.transparent,
             width: 2.0,
           ),
         ),
