@@ -47,7 +47,7 @@ class VectorPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     canvas.drawPath(path, paint);
-    canvas.drawShadow(path, Color.fromRGBO(243, 182, 156, 1.0), 4, true);
+    canvas.drawShadow(path, Color.fromRGBO(243, 182, 156, 1.0), 2, true);
   }
 
   void drawVectorB(Canvas canvas, double width, double height) {

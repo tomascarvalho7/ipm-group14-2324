@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ThemeData syncShopDarkTheme = ThemeData(
     colorScheme: const ColorScheme(
       primary: Color(0xff2e7d44),
-      secondary: Colors.white,
+      secondary: Color(0xFFA89780),
       surface: Colors.white,
       background: Color(0xff2f2f2f),
       error: Color.fromRGBO(184, 61, 60, 1.0),

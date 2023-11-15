@@ -31,7 +31,7 @@ class CategoriesScreen extends StatelessWidget {
                     children: [
                       logo(),
                       const SizedBox(width: 75),
-                      returnButton()
+                      returnButton(context, () => {})
                     ],
                   ),
                   const Text(
@@ -52,7 +52,7 @@ class CategoriesScreen extends StatelessWidget {
                 child: categories()
             ),
             const SizedBox(height: 75),
-            greenButton(),
+            greenButton(onPressed: () {  }),
           ],
         ),
       );

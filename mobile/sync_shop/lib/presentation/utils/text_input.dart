@@ -6,8 +6,8 @@ class TextInput extends StatelessWidget {
   final String hintText;
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
+  Widget build(BuildContext context) => SizedBox(
+    child: TextField(
       decoration: InputDecoration(
         hintText: hintText,
         contentPadding: const EdgeInsets.all(15.0),
@@ -15,6 +15,6 @@ class TextInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-    );
-  }
+    )
+  );
 }
