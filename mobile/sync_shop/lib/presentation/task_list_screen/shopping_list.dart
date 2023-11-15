@@ -30,7 +30,11 @@ class _ShoppingListState extends State<ShoppingList> {
   }
 
   void _showSnackBar(BuildContext context, String text, Color color) {
-    final snackBar = SnackBar(content: Text(text), backgroundColor: color);
+    final snackBar = SnackBar(
+      content: Text(text),
+      backgroundColor: color,
+      duration: const Duration(seconds: 1),
+    );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
@@ -47,7 +51,7 @@ class _ShoppingListState extends State<ShoppingList> {
             },
             child: Card(
               child: Slidable(
-                key: UniqueKey(), // Unique key for each item
+                key: UniqueKey(),
                 startActionPane: ActionPane(
                   motion: const ScrollMotion(),
                   dismissible: DismissiblePane(onDismissed: () {
@@ -82,9 +86,8 @@ class _ShoppingListState extends State<ShoppingList> {
                 ),
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(16.0),
-                  title: Text(items[index]), // Use the item from the list
-                  trailing:
-                      const Icon(Icons.check_circle_outline), // Confirm symbol
+                  title: Text(items[index]),
+                  trailing: const Icon(Icons.check_circle_outline),
                 ),
               ),
             ),
