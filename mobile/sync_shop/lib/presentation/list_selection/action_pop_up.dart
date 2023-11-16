@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ActionPopup extends StatelessWidget {
-  final VoidCallback onClick;
+class ActionPopup extends StatefulWidget {
+  final Function(String) onClick;
   final VoidCallback onClose;
   final bool isPopupVisible;
   final String buttonText;
@@ -12,12 +12,29 @@ class ActionPopup extends StatelessWidget {
     required this.onClick,
     required this.isPopupVisible,
     required this.buttonText,
-    required this.textFieldText
+    required this.textFieldText,
   });
 
   @override
+  _ActionPopupState createState() => _ActionPopupState();
+}
+
+class _ActionPopupState extends State<ActionPopup> {
+  late TextEditingController _listController;
+
+  @override
+  void initState() {
+    super.initState();
+    _listController = TextEditingController();
+    _listController.addListener(_updateButtonState);
+  }
+
+  void _updateButtonState() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //TODO fix the buttons different sizes and the overflow
     return Positioned(
       bottom: 0,
       left: 0,
@@ -25,7 +42,7 @@ class ActionPopup extends StatelessWidget {
       child: AnimatedContainer(
         clipBehavior: Clip.hardEdge,
         duration: const Duration(milliseconds: 200),
-        height: isPopupVisible ? MediaQuery.of(context).size.height * 0.3 : 0,
+        height: widget.isPopupVisible ? MediaQuery.of(context).size.height * 0.3 : 0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -39,7 +56,7 @@ class ActionPopup extends StatelessWidget {
             ),
           ],
         ),
-        child: isPopupVisible
+        child: widget.isPopupVisible
             ? Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -47,11 +64,12 @@ class ActionPopup extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
-                style: TextStyle(fontSize: 16, color: Colors.black), //TODO change to theme
+                controller: _listController,
+                style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Theme.of(context).colorScheme.secondary,
-                  hintText: textFieldText,
+                  fillColor: Theme.of(context).colorScheme.surface,
+                  hintText: widget.textFieldText,
                   hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 15, color: Colors.black),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -69,12 +87,11 @@ class ActionPopup extends StatelessWidget {
                   ),
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    onPressed: onClose,
+                    onPressed: widget.onClose,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.error,
                       padding: const EdgeInsets.all(16),
@@ -86,25 +103,27 @@ class ActionPopup extends StatelessWidget {
                       "Close",
                       style: Theme.of(context).textTheme.bodyMedium?.
                       copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.surface,
                           fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: onClick,
+                    onPressed: _listController.text.isNotEmpty ? () => widget.onClick(_listController.text) : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundColor: _listController.text.isNotEmpty
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surfaceVariant,
                       padding: const EdgeInsets.all(16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(
-                      buttonText,
+                      widget.buttonText,
                       style: Theme.of(context).textTheme.bodyMedium?.
                       copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.surface,
                           fontWeight: FontWeight.bold
                       ),
                     ),
@@ -117,5 +136,11 @@ class ActionPopup extends StatelessWidget {
             : const SizedBox.shrink(),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _listController.dispose();
+    super.dispose();
   }
 }

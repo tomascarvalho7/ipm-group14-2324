@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sync_shop/data/real_service.dart';
 import 'package:sync_shop/presentation/list_selection/action_pop_up.dart';
 import 'package:sync_shop/presentation/list_selection/add_buttons.dart';
 import 'package:sync_shop/presentation/list_selection/list_item.dart';
@@ -15,14 +19,27 @@ class ListSelectionScreen extends StatefulWidget {
 class _ListSelectionScreenState extends State<ListSelectionScreen> {
   bool _isJoinPopupVisible = false;
   bool _isCreatePopupVisible = false;
+  List<dynamic> _lists = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getLists();
+  }
+
+  Future<void> _getLists() async {
+    final listsResult = await context.read<RealService>().getListsForUser();
+    setState(() => _lists = listsResult);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final services = Provider.of<RealService>(context);
+
     return buildScreenTemplateWidget(
       context,
       "My Lists",
       [
-        // TODO add logic to get the lists and present them
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
           child: GridView.builder(
@@ -33,13 +50,13 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: 5,
+            itemCount: _lists.length,
             itemBuilder: (context, index) {
+              final data = _lists[index];
               return ListItem(
-                onClick: () => context.push('/lists/1'),
-                imageUrl:
-                    'https://media.discordapp.net/attachments/801462552709038113/1165715383970439188/Screenshot_20231022_191601_Instagram.jpg?ex=65638b8d&is=6551168d&hm=debf91f881ef03042c5492b3589bfc477ff7b1d40dd6a042b613c080e6304dc7&=&width=683&height=662',
-                text: 'Test',
+                onClick: () => context.push('/lists/${data['id']}'),
+                imageUrl: data['picture'] ?? "",
+                text: data['name'],
                 backgroundColor: Theme.of(context)
                     .colorScheme
                     .surface, // Set your desired background color
@@ -73,9 +90,18 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
           onClose: () {
             setState(() {
               _isJoinPopupVisible = false;
+              _isCreatePopupVisible = false;
             });
           },
-          onClick: () {},
+          onClick: (value) {
+            services.joinList(value)
+                .then((value) {
+                  if(value) {
+                    _getLists();
+                    _isJoinPopupVisible = false;
+                    _isCreatePopupVisible = false;
+                  }});
+          },
           isPopupVisible: _isJoinPopupVisible,
           buttonText: "Join!",
           textFieldText: "Paste Code",
@@ -83,10 +109,18 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
         ActionPopup(
           onClose: () {
             setState(() {
+              _isJoinPopupVisible = false;
               _isCreatePopupVisible = false;
             });
           },
-          onClick: () {},
+          onClick: (value) {
+            services.createList(value)
+                .then((value) {
+                  _getLists();
+                  _isJoinPopupVisible = false;
+                  _isCreatePopupVisible = false;
+            });
+          },
           isPopupVisible: _isCreatePopupVisible,
           buttonText: "Create!",
           textFieldText: "List Name",

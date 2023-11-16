@@ -1,11 +1,13 @@
 import 'package:bcrypt/bcrypt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 import '../domain/household.dart';
 import '../providers/user_storage.dart';
 
 class RealService {
   final UserStorage userStorage;
+  final client = Supabase.instance.client;
 
   RealService({required this.userStorage});
 
@@ -19,7 +21,7 @@ class RealService {
     if(!isSignUpValid(email, name, password)) return false; //invalid parameters
 
     if(await doesUserExist(email, name, password) == false) {
-      final response = await Supabase.instance.client.from('users').insert(
+      final response = await client.from('users').insert(
         {
           'email': email,
           'name': name,
@@ -42,7 +44,7 @@ class RealService {
   Future<bool> doesUserExist(String email, String name, String password) async {
     if(!isSignUpValid(email, name, password)) return false; //invalid parameters
 
-    dynamic response = await Supabase.instance.client.from('users').select('email').eq('email', email);
+    dynamic response = await client.from('users').select('email').eq('email', email);
     if(response.isNotEmpty) {
       return true;
     } else {
@@ -62,7 +64,8 @@ class RealService {
   Future<bool> logIn(String email, String password) async {
     if(!isLogInValid(email, password)) return false; //invalid parameters
 
-    dynamic response = await Supabase.instance.client.from('users').select('password').eq('email', email);
+    dynamic response = await client.from('users').select().eq('email', email);
+    userStorage.setUser(response[0]['id'].toString(), response[0]['name'], response[0]['email']);
 
     if (response.isNotEmpty) {
       String storedPassword = response[0]['password'] as String;
@@ -87,8 +90,6 @@ class RealService {
     List<String> categories,
     int priority,
   ) async {
-    final SupabaseClient client = Supabase.instance.client;
-
     await client.from('product').insert({
       "list_id": 1,
       "name": name,
@@ -98,31 +99,76 @@ class RealService {
     });
   }
 
-  Future<void> getListsForUser(String userId) async {
-    final client = Supabase.instance.client;
+  Future<List<dynamic>> getListsForUser() async {
+    final user = await userStorage.getUser();
+    if (user == null) {
+      return []; // TODO: Make him return to the main page
+    }
+    final userId = user.id;
 
     final response = await client
         .from('list_user')
-        .select()
+        .select('list_id')
         .eq('user_id', userId);
+    if(response.isEmpty) return [];
 
-    if (response.error != null) {
-      print('Error fetching lists: ${response.error?.message}');
-      return;
+    final listsResponse = await client
+        .from('list')
+        .select()
+        .in_('id', response.map((e) => e['list_id']).toList()); // Use the 'in' filter to match 'id' with the list of 'list_id' values;
+    if(listsResponse.isEmpty) return [];
+    return listsResponse;
+  }
+
+  Future<bool> joinList(String code) async {
+    final user = await userStorage.getUser();
+    if (user == null) {
+      return false; // TODO: Make him return to the main page
     }
 
-    final List<Map<String, dynamic>> lists = response.data as List<Map<String, dynamic>>;
+    final response = await client
+        .from('list')
+        .select('id')
+        .eq('code', code)
+        .single();
 
-    if (lists.isNotEmpty) {
-      print('Lists for user $userId: $lists');
-    } else {
-      print('No lists found for user $userId');
+    final Map<String, dynamic> data = response as Map<String, dynamic>;
+
+    if (data.isEmpty) {
+      // no list found for that code
+      return false;
     }
+
+    await client.from('list_user').insert({
+      "list_id": data['id'],
+      "user_id": user.id,
+    });
+    return true;
+  }
+
+  Future<void> createList(String name) async {
+    final user = await userStorage.getUser();
+    if (user == null) {
+      return; // TODO: Make him return to the main page
+    }
+
+    const uuid = Uuid();
+    String listCode = uuid.v4();
+
+    final newListId = await client.from('list').insert({
+      "name": name,
+      "picture": null,
+      "code": listCode
+    }).select('id').single();
+
+    await client.from('list_user').insert({
+      "list_id": newListId['id'],
+      "user_id": user.id,
+    });
+    return;
   }
 
   Future<Household?> getHousehold(String id) async {
-    final client = Supabase.instance.client;
-
     final response = await client
         .from("Household")
         .select()
@@ -134,8 +180,6 @@ class RealService {
   }
 
   Future<void> updateHousehold(String id, String name) async {
-    final client = Supabase.instance.client;
-
     final response = await client
         .from("Household")
         .update({"name": name})

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart' as prov;
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as supa;
 import 'package:sync_shop/app-theme.dart';
 import 'package:sync_shop/config/create_router.dart';
 import 'package:sync_shop/data/real_service.dart';
@@ -11,7 +11,7 @@ import 'config.dart';
 
 Future<void> main() async {
   // Initialize service environment
-  await Supabase.initialize(
+  await supa.Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,
   );
@@ -29,10 +29,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return prov.MultiProvider(
+    return MultiProvider(
         providers: [
-          prov.Provider<UserStorage>(create: (_) => UserStorage()),
-          prov.ProxyProvider<UserStorage, RealService>(
+          Provider<UserStorage>(create: (_) => UserStorage()),
+          ProxyProvider<UserStorage, RealService>(
               update: (_, userStorage, __) => RealService(userStorage: userStorage)
           ),
         ],

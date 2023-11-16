@@ -40,7 +40,7 @@ class ListItem extends StatelessWidget {
                       imageUrl: imageUrl,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      errorWidget: (context, url, error) => const Icon(Icons.camera_alt, size: 64,),
                     ),
                   ),
                 ),
@@ -53,7 +53,7 @@ class ListItem extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ),
