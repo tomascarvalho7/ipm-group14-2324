@@ -17,7 +17,7 @@ class EntryScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 60),
+                  padding: const EdgeInsets.only(top: 60),
                   child: Image.asset(
                     'assets/SyncShopIcon.png',
                     width: 250,

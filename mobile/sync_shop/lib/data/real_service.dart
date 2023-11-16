@@ -2,24 +2,53 @@ import 'package:bcrypt/bcrypt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sync_shop/config.dart';
 
-class RealService {
-  // Initialize service environment
-  Future<void> load() async {
-    await Supabase.initialize(
-      url: supabaseUrl,
-      anonKey: supabaseKey,
-    );
-  }
+import '../providers/user_storage.dart';
 
-  Future<void> signUp(String email, String name, String password) async =>
-      await Supabase.instance.client.from('users').insert(
+class RealService {
+  final UserStorage userStorage;
+
+  RealService({required this.userStorage});
+
+  bool isSignUpValid(String email, String name, String password) =>
+    email.isNotEmpty && name.isNotEmpty && password.isNotEmpty;
+
+  bool isLogInValid(String email, String password) =>
+      email.isNotEmpty && password.isNotEmpty;
+
+  Future<bool> signUp(String email, String name, String password) async {
+    if(!isSignUpValid(email, name, password)) return false; //invalid parameters
+
+    if(await doesUserExist(email, name, password) == false) {
+      final response = await Supabase.instance.client.from('users').insert(
         {
           'email': email,
           'name': name,
           'password': hashPassword(password),
         },
-      );
+      ).select('id');
 
+      print(response);
+
+      final createdId = response[0]['id'];
+      userStorage.setUser(createdId.toString(), name, email);
+
+      return true;
+    }
+    print("user already exists");
+    // TODO add errors
+    return false;
+  }
+
+  Future<bool> doesUserExist(String email, String name, String password) async {
+    if(!isSignUpValid(email, name, password)) return false; //invalid parameters
+
+    dynamic response = await Supabase.instance.client.from('users').select('email').eq('email', email);
+    if(response.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   String hashPassword(String password) {
     String salt = BCrypt.gensalt();
@@ -31,8 +60,9 @@ class RealService {
 
   //TODO returning boolean cause im lazy and dont wanna create a better solution
   Future<bool> logIn(String email, String password) async {
+    if(!isLogInValid(email, password)) return false; //invalid parameters
+
     dynamic response = await Supabase.instance.client.from('users').select('password').eq('email', email);
-    print(response);
 
     if (response.isNotEmpty) {
       String storedPassword = response[0]['password'] as String;
@@ -66,5 +96,27 @@ class RealService {
       "categories": categories,
       "priority": priority,
     });
+  }
+
+  Future<void> getListsForUser(String userId) async {
+    final client = Supabase.instance.client;
+
+    final response = await client
+        .from('list_user')
+        .select()
+        .eq('user_id', userId);
+
+    if (response.error != null) {
+      print('Error fetching lists: ${response.error?.message}');
+      return;
+    }
+
+    final List<Map<String, dynamic>> lists = response.data as List<Map<String, dynamic>>;
+
+    if (lists.isNotEmpty) {
+      print('Lists for user $userId: $lists');
+    } else {
+      print('No lists found for user $userId');
+    }
   }
 }

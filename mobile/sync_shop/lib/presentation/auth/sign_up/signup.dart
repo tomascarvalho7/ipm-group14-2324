@@ -193,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             _nameController.value.text,
                             _passwordController.value.text
                         ).then((value) =>
-                          context.go("/lists")
+                          value ? context.go("/lists") : print("not change page")
                         );
                       },
                       'Sign Up',

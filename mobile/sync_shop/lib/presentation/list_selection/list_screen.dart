@@ -86,7 +86,8 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
           buttonText: "Create!",
           textFieldText: "List Name",
         )
-      ]
+      ],
+      showBackButton: false,
     );
   }
 }

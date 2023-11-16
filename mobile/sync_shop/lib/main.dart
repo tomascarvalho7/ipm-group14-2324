@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as prov;
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:sync_shop/app-theme.dart';
 import 'package:sync_shop/config/create_router.dart';
 import 'package:sync_shop/data/real_service.dart';
-import 'package:sync_shop/presentation/auth/log_in/login.dart';
-import 'package:sync_shop/presentation/auth/sign_up/signup.dart';
+import 'package:sync_shop/providers/user_storage.dart';
+
+import 'config.dart';
 
 Future<void> main() async {
-  await RealService().load();
-  //TODO like this it creates 2 instances of RealServices, should be done with a provider
+  // Initialize service environment
+  await Supabase.initialize(
+    url: supabaseUrl,
+    anonKey: supabaseKey,
+  );
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -24,9 +29,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return prov.MultiProvider(
         providers: [
-          Provider<RealService>(create: (_) => RealService()),
+          prov.Provider<UserStorage>(create: (_) => UserStorage()),
+          prov.ProxyProvider<UserStorage, RealService>(
+              update: (_, userStorage, __) => RealService(userStorage: userStorage)
+          ),
         ],
         child: MaterialApp.router(
           title: 'Sync Shop',
