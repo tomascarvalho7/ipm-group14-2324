@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AddItemButton extends StatefulWidget {
-  const AddItemButton({super.key});
+  const AddItemButton({super.key, required this.listId});
+
+  final int listId;
 
   @override
   State<AddItemButton> createState() => _AddItemButtonState();
@@ -46,6 +49,7 @@ class _AddItemButtonState extends State<AddItemButton> {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
+                  context.push("/lists/${widget.listId}/newProduct");
                   // Handle adding a new item
                   if (controller.text.isNotEmpty) {
                     addItem(controller.text);

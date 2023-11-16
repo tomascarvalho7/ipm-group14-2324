@@ -11,40 +11,32 @@ class EntryScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Background(
-          child: Align(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 60),
-                  child: Image.asset(
-                    'assets/SyncShopIcon.png',
-                    width: 250,
-                    height: 250,
-                  ),
+            child: Align(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 60),
+                child: Image.asset(
+                  'assets/SyncShopIcon.png',
+                  width: 250,
+                  height: 250,
                 ),
-                Column(
-                  children: [
-                    buildConfirmButtonWidget(
-                        context,
-                            () {
-                          context.go("/signUp");
-                        },
-                        "Sign Up"),
-                    const SizedBox(height: 16),
-                    buildConfirmButtonWidget(
-                        context,
-                            () {
-                          context.go("/logIn");
-                        },
-                        "Log In"),
-                  ],
-                )
-              ],
-            ),
-          )
-        )
-    );
+              ),
+              Column(
+                children: [
+                  buildConfirmButtonWidget(context, () {
+                    context.push("/signUp");
+                  }, "Sign Up"),
+                  const SizedBox(height: 16),
+                  buildConfirmButtonWidget(context, () {
+                    context.push("/logIn");
+                  }, "Log In"),
+                ],
+              )
+            ],
+          ),
+        )));
   }
 }

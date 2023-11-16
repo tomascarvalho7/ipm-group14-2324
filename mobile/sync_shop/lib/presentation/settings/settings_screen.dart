@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +25,6 @@ class _SettingsState extends State<SettingsScreen> {
   // update fn
   void update(String input) => setState(() => nameInput = input);
 
-
   @override
   Widget build(BuildContext context) {
     final Household household = widget.household;
@@ -35,7 +32,7 @@ class _SettingsState extends State<SettingsScreen> {
 
     return buildMinorScreenTemplate(
         context: context,
-        child:  Column(
+        child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,37 +77,41 @@ class _SettingsState extends State<SettingsScreen> {
                   const SizedBox(height: 50),
                   householdInputs(context, household, update),
                   const SizedBox(height: 40),
-                  greenButton(onPressed: () => service.updateHousehold(household.id, nameInput)),
+                  greenButton(
+                      onPressed: () =>
+                          service.updateHousehold(household.id, nameInput)),
                 ],
               ),
             ),
           ],
-        )
-    );
+        ));
   }
 
-  Widget householdInputs(BuildContext context, Household household, Function(String) onChange) => SizedBox(
-    height: 330,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(height: 55, child: copyButton(context, household.url)),
-        const SizedBox(height: 35),
-        TextInputBox(hintText: household.name, height: 55, onChange: onChange),
-        const SizedBox(height: 35),
-        inputImage()
-      ],
-    ),
-  );
+  Widget householdInputs(BuildContext context, Household household,
+          Function(String) onChange) =>
+      SizedBox(
+        height: 330,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 55, child: copyButton(context, household.url)),
+            const SizedBox(height: 35),
+            TextInputBox(
+                hintText: household.name, height: 55, onChange: onChange),
+            const SizedBox(height: 35),
+            inputImage()
+          ],
+        ),
+      );
 
   Widget inputImage() => Container(
-    width: 150,
-    height: 150,
-    decoration: ShapeDecoration(
-      color: Theme.of(context).colorScheme.surfaceVariant,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-    ),
-  );
+        width: 150,
+        height: 150,
+        decoration: ShapeDecoration(
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+      );
 }

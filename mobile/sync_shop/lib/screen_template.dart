@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sync_shop/presentation/background/background.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
 
@@ -7,7 +8,7 @@ Widget buildScreenTemplateWidget(
   String title,
   List<Widget> childWidgets, {
   bool showBackButton = true,
-  bool showSettingsButton = true,
+  String? settingsRoute,
 }) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
   return Scaffold(
@@ -28,10 +29,13 @@ Widget buildScreenTemplateWidget(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           showBackButton
-                              ? Icon(
-                                  Icons.arrow_circle_left_outlined,
-                                  size: 40,
+                              ? IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_circle_left_outlined,
+                                  ),
                                   color: colorScheme.surface,
+                                  iconSize: 40,
+                                  onPressed: () => Navigator.of(context).pop(),
                                 )
                               : Container(),
                           showBackButton
@@ -40,13 +44,16 @@ Widget buildScreenTemplateWidget(
                           logo()
                         ],
                       ),
-                      showSettingsButton
-                          ? Icon(
-                              Icons.more_horiz,
-                              size: 40,
+                      settingsRoute != null
+                          ? IconButton(
+                              icon: const Icon(
+                                Icons.more_horiz,
+                              ),
                               color: colorScheme.surface,
+                              iconSize: 40,
+                              onPressed: () => context.push(settingsRoute),
                             )
-                          : Container(),
+                          : Container()
                     ],
                   ),
                   Container(
