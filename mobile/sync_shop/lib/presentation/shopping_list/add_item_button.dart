@@ -21,7 +21,7 @@ class _AddItemButtonState extends State<AddItemButton> {
 
   void showAddItemDialog(BuildContext context) {
     TextEditingController controller = TextEditingController();
-
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -38,7 +38,10 @@ class _AddItemButtonState extends State<AddItemButton> {
               const SizedBox(height: 16.0),
               ...items.map(
                 (item) => ListTile(
-                  title: Text(item),
+                  title: Text(
+                    item,
+                    style: TextStyle(color: colorScheme.background),
+                  ),
                   onTap: () {
                     // Handle selecting an existing item
                     print('Selected existing item: $item');

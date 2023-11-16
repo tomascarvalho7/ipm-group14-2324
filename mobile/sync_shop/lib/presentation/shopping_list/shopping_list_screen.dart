@@ -13,6 +13,7 @@ class ShoppingListScreen extends StatelessWidget {
     return buildScreenTemplateWidget(
       context,
       'Shopping List',
+      settingsRoute: '/settings',
       [
         Stack(
           children: [

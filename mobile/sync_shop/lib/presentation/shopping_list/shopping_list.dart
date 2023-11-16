@@ -40,6 +40,7 @@ class _ShoppingListState extends State<ShoppingList> {
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return SlidableAutoCloseBehavior(
       child: ListView.builder(
         padding: const EdgeInsets.all(20.0),
@@ -50,6 +51,7 @@ class _ShoppingListState extends State<ShoppingList> {
               _onDismissed(index, Actions.bought);
             },
             child: Card(
+              color: colorScheme.surface,
               child: Slidable(
                 key: UniqueKey(),
                 startActionPane: ActionPane(
@@ -86,8 +88,16 @@ class _ShoppingListState extends State<ShoppingList> {
                 ),
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(16.0),
-                  title: Text(items[index]),
-                  trailing: const Icon(Icons.check_circle_outline),
+                  title: Text(
+                    items[index],
+                    style: TextStyle(
+                      color: colorScheme.background,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.check_circle_outline,
+                    color: colorScheme.background,
+                  ),
                 ),
               ),
             ),

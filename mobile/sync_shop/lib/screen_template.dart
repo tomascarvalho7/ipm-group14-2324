@@ -28,19 +28,7 @@ Widget buildScreenTemplateWidget(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          showBackButton
-                              ? IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_circle_left_outlined,
-                                  ),
-                                  color: colorScheme.surface,
-                                  iconSize: 40,
-                                  onPressed: () => Navigator.of(context).pop(),
-                                )
-                              : Container(),
-                          showBackButton
-                              ? const SizedBox(width: 10)
-                              : Container(),
+                          showBackButton ? const _BackButton() : Container(),
                           logo()
                         ],
                       ),
@@ -75,4 +63,24 @@ Widget buildScreenTemplateWidget(
       ),
     )),
   );
+}
+
+class _BackButton extends StatelessWidget {
+  const _BackButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 35,
+      height: 35,
+      margin: const EdgeInsets.only(right: 10),
+      child: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        onPressed: () => context.pop(),
+        shape: const CircleBorder(),
+        child: Icon(Icons.keyboard_arrow_left,
+            size: 35, color: Theme.of(context).colorScheme.background),
+      ),
+    );
+  }
 }
