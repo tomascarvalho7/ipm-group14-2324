@@ -1,7 +1,7 @@
 import 'package:bcrypt/bcrypt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:sync_shop/config.dart';
 
+import '../domain/household.dart';
 import '../providers/user_storage.dart';
 
 class RealService {
@@ -118,5 +118,29 @@ class RealService {
     } else {
       print('No lists found for user $userId');
     }
+  }
+
+  Future<Household?> getHousehold(String id) async {
+    final client = Supabase.instance.client;
+
+    final response = await client
+        .from("Household")
+        .select()
+        .eq("id", id);
+
+    if (response.error != null) return null;
+
+    return response.data as Household;
+  }
+
+  Future<void> updateHousehold(String id, String name) async {
+    final client = Supabase.instance.client;
+
+    final response = await client
+        .from("Household")
+        .update({"name": name})
+        .match({"id": id});
+
+    return;
   }
 }

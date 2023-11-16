@@ -6,6 +6,7 @@ ThemeData syncShopDarkTheme = ThemeData(
       primary: Color(0xff2e7d44),
       secondary: Color(0xFFA89780),
       surface: Colors.white,
+      surfaceVariant: Color(0xFF484848),
       background: Color(0xff2f2f2f),
       error: Color.fromRGBO(184, 61, 60, 1.0),
       onPrimary: Colors.white,
