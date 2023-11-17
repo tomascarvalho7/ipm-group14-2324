@@ -20,36 +20,37 @@ class _ShoppingListState extends State<ShoppingList> {
   @override
   void initState() {
     super.initState();
-    _getShoppingList(widget.listId);
+    _getShoppingList();
   }
 
-  Future<void> _getShoppingList(int id) async {
-    final shoppingList = await context.read<RealService>().getShoppingList(id);
+  Future<void> _getShoppingList() async {
+    debugPrint('get shopping list');
+    final shoppingList =
+        await context.read<RealService>().getShoppingList(widget.listId);
+    debugPrint('shopping list: $shoppingList');
     setState(() {
-      items = shoppingList?.toList() ?? [];
+      items = shoppingList.toList();
     });
   }
 
   Future<void> _onDismissed(int index, Actions action) async {
+    final RealService service = context.read<RealService>();
     switch (action) {
       case Actions.delete:
-        _showSnackBar(context, 'Item is deleted', Colors.red);
-        await context.read<RealService>().deleteProduct(items[index]['id']);
+        _showSnackBar('Item is deleted', Colors.red);
+        await service.deleteProduct(items[index]['id']);
         // remove item from shopping list
         break;
       case Actions.bought:
-        _showSnackBar(context, 'Item is bought', Colors.green);
-        await context.read<RealService>().updateProduct(
-              items[index]['id'],
-              true,
-            );
+        _showSnackBar('Item is bought', Colors.green);
+        await service.updateProduct(items[index]['id'], true);
         // update item to bought
         break;
     }
-    _getShoppingList(widget.listId);
+    _getShoppingList();
   }
 
-  void _showSnackBar(BuildContext context, String text, Color color) {
+  void _showSnackBar(String text, Color color) {
     final snackBar = SnackBar(
       content: Text(text),
       backgroundColor: color,

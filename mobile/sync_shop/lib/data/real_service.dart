@@ -1,7 +1,6 @@
 import 'package:bcrypt/bcrypt.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:sync_shop/domain/product.dart';
-import 'package:sync_shop/presentation/shopping_list/shopping_list.dart';
 import 'package:uuid/uuid.dart';
 
 import '../domain/household.dart';
@@ -97,7 +96,7 @@ class RealService {
     int priority,
   ) async {
     await client.from('product').insert({
-      "list_id": 1,
+      "list_id": listId,
       "name": name,
       "bought": false,
       "categories": categories,
@@ -184,14 +183,13 @@ class RealService {
     return;
   }
 
-  Future<List<dynamic>?> getShoppingList(int id) async {
+  Future<List<dynamic>> getShoppingList(int id) async {
     final response = await client
         .from("product")
         .select()
         .eq("list_id", id)
         .eq("bought", false);
-
-    if (response.isEmpty) return null;
+    debugPrint(response.toString());
 
     return response;
   }
