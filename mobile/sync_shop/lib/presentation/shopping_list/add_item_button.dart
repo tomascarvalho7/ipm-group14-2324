@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sync_shop/data/real_service.dart';
 
 class AddItemButton extends StatefulWidget {
   const AddItemButton({super.key, required this.listId});
@@ -11,12 +13,27 @@ class AddItemButton extends StatefulWidget {
 }
 
 class _AddItemButtonState extends State<AddItemButton> {
-  final List<String> items = ['Item 1', 'Item 2', 'Item 3'];
+  List<dynamic>? _items = [];
 
-  void addItem(String newItem) {
+  @override
+  void initState() {
+    super.initState();
+    _getBoughtItems(widget.listId);
+  }
+
+  Future<void> _getBoughtItems(int id) async {
+    final boughtItems = await context.read<RealService>().getBoughtList(id);
     setState(() {
-      items.add(newItem);
+      _items = boughtItems?.toList() ?? [];
     });
+  }
+
+  Future<void> _readdItem(int id) async {
+    await context.read<RealService>().updateProduct(
+          id,
+          false,
+        );
+    _getBoughtItems(widget.listId);
   }
 
   void showAddItemDialog(BuildContext context) {
@@ -36,15 +53,14 @@ class _AddItemButtonState extends State<AddItemButton> {
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16.0),
-              ...items.map(
+              ..._items!.map(
                 (item) => ListTile(
                   title: Text(
-                    item,
+                    item['name'],
                     style: TextStyle(color: colorScheme.background),
                   ),
                   onTap: () {
-                    // Handle selecting an existing item
-                    print('Selected existing item: $item');
+                    _readdItem(item['id']);
                     Navigator.pop(context);
                   },
                 ),
@@ -55,7 +71,7 @@ class _AddItemButtonState extends State<AddItemButton> {
                   context.push("/lists/${widget.listId}/newProduct");
                   // Handle adding a new item
                   if (controller.text.isNotEmpty) {
-                    addItem(controller.text);
+                    // addItem(controller.text);
                     print('Added new item: ${controller.text}');
                   }
                   Navigator.pop(context);

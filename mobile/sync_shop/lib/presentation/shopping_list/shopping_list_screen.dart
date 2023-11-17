@@ -17,7 +17,7 @@ class ShoppingListScreen extends StatelessWidget {
       [
         Stack(
           children: [
-            const ShoppingList(),
+            ShoppingList(listId: listId),
             Positioned(
               bottom: 10,
               right: 10,

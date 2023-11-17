@@ -94,13 +94,13 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
             });
           },
           onClick: (value) {
-            services.joinList(value)
-                .then((value) {
-                  if(value) {
-                    _getLists();
-                    _isJoinPopupVisible = false;
-                    _isCreatePopupVisible = false;
-                  }});
+            services.joinList(value).then((value) {
+              if (value) {
+                _getLists();
+                _isJoinPopupVisible = false;
+                _isCreatePopupVisible = false;
+              }
+            });
           },
           isPopupVisible: _isJoinPopupVisible,
           buttonText: "Join!",
@@ -114,11 +114,10 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
             });
           },
           onClick: (value) {
-            services.createList(value)
-                .then((value) {
-                  _getLists();
-                  _isJoinPopupVisible = false;
-                  _isCreatePopupVisible = false;
+            services.createList(value).then((value) {
+              _getLists();
+              _isJoinPopupVisible = false;
+              _isCreatePopupVisible = false;
             });
           },
           isPopupVisible: _isCreatePopupVisible,

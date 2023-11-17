@@ -1,32 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:sync_shop/data/real_service.dart';
 
 enum Actions { delete, bought }
 
 class ShoppingList extends StatefulWidget {
-  const ShoppingList({Key? key}) : super(key: key);
+  const ShoppingList({super.key, required this.listId});
+
+  final int listId;
 
   @override
   State<ShoppingList> createState() => _ShoppingListState();
 }
 
 class _ShoppingListState extends State<ShoppingList> {
-  final List<String> items =
-      List<String>.generate(10, (index) => 'Product $index');
+  List<dynamic> items = [];
 
-  void _onDismissed(int index, Actions action) {
+  @override
+  void initState() {
+    super.initState();
+    _getShoppingList(widget.listId);
+  }
+
+  Future<void> _getShoppingList(int id) async {
+    final shoppingList = await context.read<RealService>().getShoppingList(id);
     setState(() {
-      items.removeAt(index);
+      items = shoppingList?.toList() ?? [];
     });
+  }
 
+  Future<void> _onDismissed(int index, Actions action) async {
     switch (action) {
       case Actions.delete:
         _showSnackBar(context, 'Item is deleted', Colors.red);
+        await context.read<RealService>().deleteProduct(items[index]['id']);
+        // remove item from shopping list
         break;
       case Actions.bought:
         _showSnackBar(context, 'Item is bought', Colors.green);
+        await context.read<RealService>().updateProduct(
+              items[index]['id'],
+              true,
+            );
+        // update item to bought
         break;
     }
+    _getShoppingList(widget.listId);
   }
 
   void _showSnackBar(BuildContext context, String text, Color color) {
@@ -46,6 +66,7 @@ class _ShoppingListState extends State<ShoppingList> {
         padding: const EdgeInsets.all(20.0),
         itemCount: items.length,
         itemBuilder: (context, index) {
+          final data = items[index];
           return GestureDetector(
             onTap: () {
               _onDismissed(index, Actions.bought);
@@ -89,14 +110,14 @@ class _ShoppingListState extends State<ShoppingList> {
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(16.0),
                   title: Text(
-                    items[index],
+                    items[index]['name'] ?? "Nameless Item",
                     style: TextStyle(
                       color: colorScheme.background,
                     ),
                   ),
                   trailing: Icon(
                     Icons.check_circle_outline,
-                    color: colorScheme.background,
+                    color: colorScheme.primary,
                   ),
                 ),
               ),
