@@ -8,6 +8,7 @@ import 'package:sync_shop/data/real_service.dart';
 import 'package:sync_shop/providers/user_storage.dart';
 
 import 'config.dart';
+import 'domain/provider/categories_controller.dart';
 
 Future<void> main() async {
   // Initialize service environment
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           Provider<UserStorage>(create: (_) => UserStorage()),
+          ChangeNotifierProvider(create: (_) => CategoriesController()),
           ProxyProvider<UserStorage, RealService>(
               update: (_, userStorage, __) => RealService(userStorage: userStorage)
           ),

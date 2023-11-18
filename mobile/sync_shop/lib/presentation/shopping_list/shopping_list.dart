@@ -25,8 +25,7 @@ class _ShoppingListState extends State<ShoppingList> {
 
   Future<void> _getShoppingList() async {
     debugPrint('get shopping list');
-    final shoppingList =
-        await context.read<RealService>().getShoppingList(widget.listId);
+    final shoppingList = await context.read<RealService>().getShoppingList(widget.listId);
     debugPrint('shopping list: $shoppingList');
     setState(() {
       items = shoppingList.toList();

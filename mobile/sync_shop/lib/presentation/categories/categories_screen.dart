@@ -34,7 +34,7 @@ class CategoriesScreen extends StatelessWidget {
                       children: [
                         logo(),
                         const SizedBox(width: 75),
-                        returnButton(context, () => {})
+                        returnButton(context, () => context.pop())
                       ],
                     ),
                     const Text(
@@ -65,24 +65,24 @@ class CategoriesScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            category(context, Category.dairy, controller, 110, 110),
-            category(context, Category.bakery, controller, 135, 110),
-            category(context, Category.frozenFoods, controller, 85, 110),
+            category(context, Category.generalGoods, controller, 110, 110),
+            category(context, Category.dairy, controller, 135, 110),
+            category(context, Category.meatFish, controller, 85, 110),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            category(context, Category.fruitsVegetables, controller, 135, 110),
+            category(context, Category.pantryStaples, controller, 85, 110),
+            category(context, Category.bakery, controller, 110, 110),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            category(context, Category.frozenFoods, controller, 200, 110),
             category(context, Category.householdEssentials, controller, 135, 110),
-            category(context, Category.meat, controller, 85, 110),
-            category(context, Category.pantryStaples, controller, 110, 110),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            category(context, Category.produce, controller, 200, 110),
-            category(context, Category.produce, controller, 135, 110),
           ],
         ),
       ],

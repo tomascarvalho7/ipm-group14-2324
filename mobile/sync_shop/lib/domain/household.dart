@@ -1,7 +1,7 @@
-class Household {
-  Household({required this.id, required this.name, required this.url});
+class ShoppingList {
+  ShoppingList({required this.id, required this.name, required this.url});
 
-  final String id;
+  final int id;
   final String name;
   final String url;
 }

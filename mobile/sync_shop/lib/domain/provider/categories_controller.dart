@@ -6,18 +6,30 @@ class CategoriesController with ChangeNotifier {
 
   bool isSelected(Category category) => categories.contains(category);
 
-  void add(Category category) {
-    if (isSelected(category)) return;
+  void interact(Category category) {
+    if (isSelected(category)) {
+      remove(category);
+    } else {
+      add(category);
+    }
 
-    categories = [...categories, category];
     notifyListeners();
+  }
+
+  void remove(Category category) {
+    categories = List<Category>.from(categories)..remove(category);
+  }
+
+  void add(Category category) {
+    categories = [...categories, category];
   }
 }
 
 enum Category {
-  produce,
+  generalGoods,
   dairy,
-  meat,
+  meatFish,
+  fruitsVegetables,
   pantryStaples,
   bakery,
   frozenFoods,

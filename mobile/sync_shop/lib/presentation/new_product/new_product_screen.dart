@@ -75,10 +75,7 @@ class _NewProcuctScreenState extends State<NewProcuctScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: RectangularButton(
                   text: 'Categories',
-                  onPressed: () {
-                    debugPrint('Categories');
-                    setCategories(['Fruit']);
-                  },
+                  onPressed: () => context.push("/categories"),
                 ),
               ),
               const SizedBox(height: 20),

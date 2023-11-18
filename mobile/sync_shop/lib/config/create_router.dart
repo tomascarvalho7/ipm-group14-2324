@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:sync_shop/presentation/auth/entry/entry_screen.dart';
 import 'package:sync_shop/presentation/auth/log_in/login.dart';
 import 'package:sync_shop/presentation/auth/sign_up/signup.dart';
+import 'package:sync_shop/presentation/categories/categories_screen.dart';
 import 'package:sync_shop/presentation/list_selection/list_screen.dart';
 import 'package:sync_shop/presentation/new_product/new_product_screen.dart';
+import 'package:sync_shop/presentation/settings/settings_screen.dart';
 import 'package:sync_shop/presentation/shopping_list/shopping_list_screen.dart';
 
 GoRouter createRouter() => GoRouter(initialLocation: "/", routes: [
@@ -20,6 +22,17 @@ GoRouter createRouter() => GoRouter(initialLocation: "/", routes: [
           path: '/logIn',
           builder: (BuildContext context, GoRouterState state) =>
               LogInScreen()),
+      GoRoute(
+          path: '/categories',
+          builder: (BuildContext context, GoRouterState state) =>
+          const CategoriesScreen()),
+      GoRoute(
+          path: '/list/:listId/settings',
+          builder: (BuildContext context, GoRouterState state) {
+            final listId = int.parse(state.params['listId']!);
+            return SettingsScreen(listId: listId);
+          }
+          ),
       GoRoute(
           path: '/lists',
           builder: (BuildContext context, GoRouterState state) =>

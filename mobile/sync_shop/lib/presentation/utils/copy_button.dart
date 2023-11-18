@@ -14,7 +14,7 @@ Widget copyButton(BuildContext context, String content) => ElevatedButton(
         Icon(Icons.copy, size: 35, color: Theme.of(context).colorScheme.surface),
         const SizedBox(width: 10),
         Text(
-          content,
+          '${content.substring(0, 18)}...',
           style: TextStyle(
             color: Theme.of(context).colorScheme.surface,
             fontSize: 22,

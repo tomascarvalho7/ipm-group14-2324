@@ -169,18 +169,22 @@ class RealService {
     return;
   }
 
-  Future<Household?> getHousehold(String id) async {
-    final response = await client.from("Household").select().eq("id", id);
-
-    if (response.error != null) return null;
-
-    return response.data as Household;
+  Future<void> updateList(int id, String name) async {
+    final response = await client
+        .from("list")
+        .update({"name": name})
+        .eq("id", id);
+    return;
   }
 
-  Future<void> updateHousehold(String id, String name) async {
-    final response =
-        await client.from("Household").update({"name": name}).match({"id": id});
-    return;
+  Future<ShoppingList> getShoppingListInfo(int id) async {
+    final response = await client
+        .from("list")
+        .select()
+        .eq("id", id)
+        .single() as Map<String, dynamic>;
+    debugPrint(response.toString());
+    return ShoppingList(id: response["id"], name: response["name"], url: response["code"]);
   }
 
   Future<List<dynamic>> getShoppingList(int id) async {
