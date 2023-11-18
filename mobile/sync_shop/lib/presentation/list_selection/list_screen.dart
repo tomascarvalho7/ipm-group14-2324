@@ -52,7 +52,8 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
             itemBuilder: (context, index) {
               final data = _lists[index];
               return ListItem(
-                onClick: () => context.push('/lists/${data['id']}'),
+                onClick: () =>
+                    context.push('/lists/${data['id']}', extra: data['name']),
                 imageUrl: data['picture'] ?? "",
                 text: data['name'],
                 backgroundColor: Theme.of(context)

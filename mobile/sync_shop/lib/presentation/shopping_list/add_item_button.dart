@@ -4,40 +4,32 @@ import 'package:provider/provider.dart';
 import 'package:sync_shop/data/real_service.dart';
 
 class AddItemButton extends StatefulWidget {
-  const AddItemButton({super.key, required this.listId});
+  const AddItemButton({
+    super.key,
+    required this.listId,
+    required this.boughtItems,
+    required this.onRefresh,
+  });
 
   final int listId;
+  final List<dynamic> boughtItems;
+  final void Function() onRefresh;
 
   @override
   State<AddItemButton> createState() => _AddItemButtonState();
 }
 
 class _AddItemButtonState extends State<AddItemButton> {
-  List<dynamic>? _items = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _getBoughtItems(widget.listId);
-  }
-
-  Future<void> _getBoughtItems(int id) async {
-    final boughtItems = await context.read<RealService>().getBoughtList(id);
-    setState(() {
-      _items = boughtItems?.toList() ?? [];
-    });
-  }
-
   Future<void> _readdItem(int id) async {
     await context.read<RealService>().updateProduct(
+          widget.listId,
           id,
           false,
         );
-    _getBoughtItems(widget.listId);
+    widget.onRefresh();
   }
 
   void showAddItemDialog(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context,
@@ -53,7 +45,7 @@ class _AddItemButtonState extends State<AddItemButton> {
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16.0),
-              ..._items!.map(
+              ...widget.boughtItems.map(
                 (item) => ListTile(
                   title: Text(
                     item['name'],
@@ -69,11 +61,6 @@ class _AddItemButtonState extends State<AddItemButton> {
               ElevatedButton(
                 onPressed: () {
                   context.push("/lists/${widget.listId}/newProduct");
-                  // Handle adding a new item
-                  if (controller.text.isNotEmpty) {
-                    // addItem(controller.text);
-                    print('Added new item: ${controller.text}');
-                  }
                   Navigator.pop(context);
                 },
                 child: const Center(
@@ -95,13 +82,18 @@ class _AddItemButtonState extends State<AddItemButton> {
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return FloatingActionButton(
+      heroTag: 'addItemButton',
       shape: const CircleBorder(),
-      backgroundColor: const Color(0xFF006400),
+      backgroundColor: colorScheme.background,
       onPressed: () {
         showAddItemDialog(context);
       },
-      child: const Icon(Icons.add),
+      child: Icon(
+        Icons.add,
+        color: colorScheme.surface,
+      ),
     );
   }
 }

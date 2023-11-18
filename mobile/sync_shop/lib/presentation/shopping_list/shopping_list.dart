@@ -6,49 +6,22 @@ import 'package:sync_shop/data/real_service.dart';
 enum Actions { delete, bought }
 
 class ShoppingList extends StatefulWidget {
-  const ShoppingList({super.key, required this.listId});
+  const ShoppingList({
+    super.key,
+    required this.listId,
+    required this.items,
+    required this.onRefresh,
+  });
 
   final int listId;
+  final List<dynamic> items;
+  final void Function() onRefresh;
 
   @override
   State<ShoppingList> createState() => _ShoppingListState();
 }
 
 class _ShoppingListState extends State<ShoppingList> {
-  List<dynamic> items = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _getShoppingList();
-  }
-
-  Future<void> _getShoppingList() async {
-    debugPrint('get shopping list');
-    final shoppingList = await context.read<RealService>().getShoppingList(widget.listId);
-    debugPrint('shopping list: $shoppingList');
-    setState(() {
-      items = shoppingList.toList();
-    });
-  }
-
-  Future<void> _onDismissed(int index, Actions action) async {
-    final RealService service = context.read<RealService>();
-    switch (action) {
-      case Actions.delete:
-        _showSnackBar('Item is deleted', Colors.red);
-        await service.deleteProduct(items[index]['id']);
-        // remove item from shopping list
-        break;
-      case Actions.bought:
-        _showSnackBar('Item is bought', Colors.green);
-        await service.updateProduct(items[index]['id'], true);
-        // update item to bought
-        break;
-    }
-    _getShoppingList();
-  }
-
   void _showSnackBar(String text, Color color) {
     final snackBar = SnackBar(
       content: Text(text),
@@ -58,66 +31,88 @@ class _ShoppingListState extends State<ShoppingList> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  Future<void> _onDismissed(int index, Actions action) async {
+    final RealService service = context.read<RealService>();
+    switch (action) {
+      case Actions.delete:
+        _showSnackBar('Item is deleted', Colors.red);
+        await service.deleteProduct(widget.listId, widget.items[index]['id']);
+        break;
+      case Actions.bought:
+        _showSnackBar('Item is bought', Colors.green);
+        await service.updateProduct(
+            widget.listId, widget.items[index]['id'], true);
+        break;
+    }
+    widget.onRefresh();
+  }
+
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return SlidableAutoCloseBehavior(
       child: ListView.builder(
-        padding: const EdgeInsets.all(20.0),
-        itemCount: items.length,
+        itemCount: widget.items.length,
         itemBuilder: (context, index) {
-          final data = items[index];
-          return GestureDetector(
-            onTap: () {
-              _onDismissed(index, Actions.bought);
-            },
-            child: Card(
-              color: colorScheme.surface,
-              child: Slidable(
-                key: UniqueKey(),
-                startActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  dismissible: DismissiblePane(onDismissed: () {
-                    _onDismissed(index, Actions.bought);
-                  }),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) =>
-                          _onDismissed(index, Actions.bought),
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      icon: Icons.check,
-                      label: 'Bought',
-                    ),
-                  ],
-                ),
-                endActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  dismissible: DismissiblePane(onDismissed: () {
-                    _onDismissed(index, Actions.delete);
-                  }),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) =>
-                          _onDismissed(index, Actions.delete),
-                      backgroundColor: const Color(0xFFFE4A49),
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: 'Delete',
-                    ),
-                  ],
+          return Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: Slidable(
+              key: UniqueKey(),
+              startActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                dismissible: DismissiblePane(onDismissed: () {
+                  _onDismissed(index, Actions.bought);
+                }),
+                children: [
+                  SlidableAction(
+                    onPressed: (context) => _onDismissed(index, Actions.bought),
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    icon: Icons.check,
+                    label: 'Bought',
+                  ),
+                ],
+              ),
+              endActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                dismissible: DismissiblePane(onDismissed: () {
+                  _onDismissed(index, Actions.delete);
+                }),
+                children: [
+                  SlidableAction(
+                    onPressed: (context) => _onDismissed(index, Actions.delete),
+                    backgroundColor: const Color(0xFFFE4A49),
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                  ),
+                ],
+              ),
+              child: Container(
+                // rounded corners
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: ListTile(
-                  contentPadding: const EdgeInsets.all(16.0),
                   title: Text(
-                    items[index]['name'] ?? "Nameless Item",
+                    '${widget.items[index]['name']} (${widget.items[index]['categories'].toList().join('/')})',
                     style: TextStyle(
+                      fontSize: 16,
                       color: colorScheme.background,
                     ),
                   ),
-                  trailing: Icon(
-                    Icons.check_circle_outline,
-                    color: colorScheme.primary,
+                  trailing: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.items[index]['priority'] == 0
+                          ? Colors.green
+                          : widget.items[index]['priority'] == 1
+                              ? Colors.yellow
+                              : Colors.red,
+                    ),
                   ),
                 ),
               ),
@@ -128,5 +123,3 @@ class _ShoppingListState extends State<ShoppingList> {
     );
   }
 }
-
-void doNothing(BuildContext context) {}

@@ -170,54 +170,50 @@ class RealService {
   }
 
   Future<void> updateList(int id, String name) async {
-    final response = await client
-        .from("list")
-        .update({"name": name})
-        .eq("id", id);
+    final response =
+        await client.from("list").update({"name": name}).eq("id", id);
     return;
   }
 
   Future<ShoppingList> getShoppingListInfo(int id) async {
-    final response = await client
-        .from("list")
-        .select()
-        .eq("id", id)
-        .single() as Map<String, dynamic>;
+    final response = await client.from("list").select().eq("id", id).single()
+        as Map<String, dynamic>;
     debugPrint(response.toString());
-    return ShoppingList(id: response["id"], name: response["name"], url: response["code"]);
+    return ShoppingList(
+        id: response["id"], name: response["name"], url: response["code"]);
   }
 
   Future<List<dynamic>> getShoppingList(int id) async {
-    final response = await client
+    return await client
         .from("product")
         .select()
         .eq("list_id", id)
-        .eq("bought", false);
-    debugPrint(response.toString());
-
-    return response;
+        .eq("bought", false)
+        .order("priority", ascending: false);
   }
 
-  Future<void> deleteProduct(int id) async {
-    final response = await client.from("product").delete().eq("id", id);
-    return;
+  Future<void> deleteProduct(int listId, int productId) async {
+    await client
+        .from("product")
+        .delete()
+        .eq("id", productId)
+        .eq("list_id", listId);
   }
 
-  Future<void> updateProduct(int id, bool bought) async {
-    final response =
-        await client.from("product").update({"bought": bought}).eq("id", id);
-    return;
+  Future<void> updateProduct(int listId, int productId, bool bought) async {
+    await client
+        .from("product")
+        .update({"bought": bought})
+        .eq("id", productId)
+        .eq("list_id", listId);
   }
 
-  Future<List<dynamic>?> getBoughtList(int id) async {
-    final response = await client
+  Future<List<dynamic>> getBoughtList(int id) async {
+    return await client
         .from("product")
         .select()
         .eq("list_id", id)
-        .eq("bought", true);
-
-    if (response.isEmpty) return null;
-
-    return response;
+        .eq("bought", true)
+        .order("date", ascending: true);
   }
 }

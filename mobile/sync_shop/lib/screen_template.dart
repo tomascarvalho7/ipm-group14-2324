@@ -75,6 +75,7 @@ class _BackButton extends StatelessWidget {
       height: 35,
       margin: const EdgeInsets.only(right: 10),
       child: FloatingActionButton(
+        heroTag: 'backButton',
         backgroundColor: Theme.of(context).colorScheme.surface,
         onPressed: () => context.pop(),
         shape: const CircleBorder(),
