@@ -33,13 +33,19 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
 
   Future<void> _refreshLists() async {
     RealService service = context.read<RealService>();
-    final newItems = await service.getShoppingList(widget.listId);
+    final newItems = await service.getShoppingList(widget.listId, categories);
     setState(() {
       items = newItems.toList();
     });
     final newBoughtItems = await service.getBoughtList(widget.listId);
     setState(() {
       boughtItems = newBoughtItems.toList();
+    });
+  }
+
+  void _setCategories(List<String> value) {
+    setState(() {
+      categories = value;
     });
   }
 
@@ -56,7 +62,11 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                const FilterButton(items: [''], categories: []),
+                FilterButton(
+                  categories: categories,
+                  setCategories: _setCategories,
+                  onRefresh: _refreshLists,
+                ),
                 const SizedBox(height: 10),
                 Expanded(
                   child: ShoppingList(

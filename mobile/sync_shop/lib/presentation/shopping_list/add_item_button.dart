@@ -13,7 +13,7 @@ class AddItemButton extends StatefulWidget {
 
   final int listId;
   final List<dynamic> boughtItems;
-  final void Function() onRefresh;
+  final Future<void> Function() onRefresh;
 
   @override
   State<AddItemButton> createState() => _AddItemButtonState();
@@ -26,7 +26,7 @@ class _AddItemButtonState extends State<AddItemButton> {
           id,
           false,
         );
-    widget.onRefresh();
+    await widget.onRefresh();
   }
 
   void showAddItemDialog(BuildContext context) {

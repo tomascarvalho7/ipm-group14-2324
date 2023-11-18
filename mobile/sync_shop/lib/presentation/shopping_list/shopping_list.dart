@@ -15,7 +15,7 @@ class ShoppingList extends StatefulWidget {
 
   final int listId;
   final List<dynamic> items;
-  final void Function() onRefresh;
+  final Future<void> Function() onRefresh;
 
   @override
   State<ShoppingList> createState() => _ShoppingListState();
@@ -44,13 +44,15 @@ class _ShoppingListState extends State<ShoppingList> {
             widget.listId, widget.items[index]['id'], true);
         break;
     }
-    widget.onRefresh();
+    await widget.onRefresh();
   }
 
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    return SlidableAutoCloseBehavior(
+    return RefreshIndicator(
+      displacement: 10,
+      onRefresh: widget.onRefresh,
       child: ListView.builder(
         itemCount: widget.items.length,
         itemBuilder: (context, index) {

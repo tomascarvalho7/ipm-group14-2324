@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({
     super.key,
-    required this.items,
     required this.categories,
+    required this.setCategories,
+    required this.onRefresh,
   });
 
-  final List<dynamic> items;
   final List<String> categories;
+  final void Function(List<String>) setCategories;
+  final Future<void> Function() onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,15 @@ class FilterButton extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: items.isNotEmpty
-              ? colorScheme.surface
-              : colorScheme.surface.withOpacity(0.5),
+          color: colorScheme.surface,
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () => context.push('/categories'),
+          onTap: () async {
+            setCategories(["Vegetables", "Fruit"]);
+            await onRefresh();
+            // context.push('/categories');
+          },
           splashColor: Colors.grey.withOpacity(0.5),
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -39,14 +42,11 @@ class FilterButton extends StatelessWidget {
                   color: colorScheme.background,
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  'Filter',
-                  style: TextStyle(
+                Text('Filter',
+                    style: TextStyle(
                       fontSize: 16,
-                      color: items.isNotEmpty
-                          ? colorScheme.background
-                          : colorScheme.background.withOpacity(0.5)),
-                ),
+                      color: colorScheme.background,
+                    )),
               ],
             ),
           ),

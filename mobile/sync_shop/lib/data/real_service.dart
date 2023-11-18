@@ -183,12 +183,21 @@ class RealService {
         id: response["id"], name: response["name"], url: response["code"]);
   }
 
-  Future<List<dynamic>> getShoppingList(int id) async {
+  Future<List<dynamic>> getShoppingList(int id, List<String> categories) async {
+    if (categories.isEmpty) {
+      return await client
+          .from("product")
+          .select()
+          .eq("list_id", id)
+          .eq("bought", false)
+          .order("priority", ascending: false);
+    }
     return await client
         .from("product")
         .select()
         .eq("list_id", id)
         .eq("bought", false)
+        .containedBy("categories", categories)
         .order("priority", ascending: false);
   }
 
