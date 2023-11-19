@@ -6,6 +6,12 @@ class CategoriesController with ChangeNotifier {
 
   bool isSelected(Category category) => categories.contains(category);
 
+  void clear() {
+    categories = [];
+
+    notifyListeners();
+  }
+
   void interact(Category category) {
     if (isSelected(category)) {
       remove(category);

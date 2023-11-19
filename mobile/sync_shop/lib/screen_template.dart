@@ -28,7 +28,7 @@ Widget buildScreenTemplateWidget(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          showBackButton ? const ReturnBackButton() : Container(),
+                          showBackButton ? ReturnBackButton(onPressed: (ctx) => ctx.pop()) : Container(),
                           logo()
                         ],
                       ),
@@ -66,7 +66,9 @@ Widget buildScreenTemplateWidget(
 }
 
 class ReturnBackButton extends StatelessWidget {
-  const ReturnBackButton({super.key});
+  const ReturnBackButton({super.key, required this.onPressed});
+
+  final void Function(BuildContext ctx) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class ReturnBackButton extends StatelessWidget {
       child: FloatingActionButton(
         heroTag: 'backButton',
         backgroundColor: Theme.of(context).colorScheme.surface,
-        onPressed: () => context.pop(),
+        onPressed: () => onPressed(context),
         shape: const CircleBorder(),
         child: Icon(Icons.keyboard_arrow_left,
             size: 35, color: Theme.of(context).colorScheme.background),

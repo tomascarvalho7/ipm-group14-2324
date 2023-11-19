@@ -81,7 +81,7 @@ class _SettingsState extends State<SettingsScreen> {
                       logo(),
                       const SizedBox(width: 75),
                       // pop => return to previous screen
-                      const ReturnBackButton(),
+                      ReturnBackButton(onPressed: (ctx) => ctx.pop()),
                     ],
                   ),
                   Text(

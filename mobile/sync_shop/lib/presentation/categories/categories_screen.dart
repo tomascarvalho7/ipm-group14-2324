@@ -31,7 +31,10 @@ class CategoriesScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const ReturnBackButton(),
+                        ReturnBackButton(onPressed: (ctx) {
+                          ctx.read<CategoriesController>().clear();
+                          ctx.pop();
+                        }),
                         const SizedBox(width: 25),
                         logo(),
                       ],
@@ -52,7 +55,12 @@ class CategoriesScreen extends StatelessWidget {
                   height: 350,
                   child: categories(context)
               ),
-              greenButton(onPressed: () => context.pop()),
+              greenButton(onPressed: () {
+                CategoriesController controller = context.read<CategoriesController>();
+                List<String> categoryLabels = controller.categories.map((e) => categoryToName(e)).toList();
+                controller.clear();
+                context.pop(categoryLabels);
+              }),
             ],
           )
       );
