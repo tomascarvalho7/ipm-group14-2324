@@ -5,6 +5,7 @@ Widget category(BuildContext context, Category category, CategoriesController ca
     ElevatedButton(
     onPressed: () => categories.interact(category),
     style: ElevatedButton.styleFrom(
+      elevation: 2,
       backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(3),
@@ -17,39 +18,40 @@ Widget category(BuildContext context, Category category, CategoriesController ca
       minimumSize: Size(width, height),
     ),
     child: Stack(
-      fit: StackFit.expand,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
           child: Image.asset(
               categoryToImage(category)
           )
         ),
         Container(
+            width: double.infinity,
             alignment: Alignment.bottomLeft,
-            child: Text(
-              categoryToName(category),
-              style: TextStyle(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Theme.of(context).colorScheme.surface,
+                    Theme.of(context).colorScheme.surface.withAlpha(245),
+                    Theme.of(context).colorScheme.surface.withAlpha(30),
+                    Theme.of(context).colorScheme.surface.withAlpha(0),
+                    Theme.of(context).colorScheme.surface.withAlpha(0)
+                  ]
+              )
+            ),
+          child: Text(
+            categoryToName(category),
+            style: TextStyle(
+                height: 1.0,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 3
-                  ..color = Colors.black54,
-              ),
-            )
+                color: Theme.of(context).colorScheme.tertiary
+            ),
+          )
         ),
-        Container(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  categoryToName(category),
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onSecondary
-                  ),
-                )
-            )
       ]
     )
 );

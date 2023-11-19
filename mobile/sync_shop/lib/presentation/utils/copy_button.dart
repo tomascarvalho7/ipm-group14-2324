@@ -5,7 +5,7 @@ Widget copyButton(BuildContext context, String content) => ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-      shadowColor: Theme.of(context).colorScheme.surfaceVariant
+      shadowColor: Theme.of(context).colorScheme.onSurface
     ),
     onPressed: (){
       Clipboard.setData(ClipboardData(text: content));
