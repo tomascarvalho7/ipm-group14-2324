@@ -45,7 +45,7 @@ class _ActionPopupState extends State<ActionPopup> {
         height: widget.isPopupVisible ? MediaQuery.of(context).size.height * 0.3 : 0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -65,23 +65,26 @@ class _ActionPopupState extends State<ActionPopup> {
             children: [
               TextField(
                 controller: _listController,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 15,
+                    color: Theme.of(context).colorScheme.surfaceVariant
+                ),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.surface,
                   hintText: widget.textFieldText,
-                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 15, color: Colors.black),
+                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 15, color: Theme.of(context).colorScheme.surfaceVariant),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surfaceVariant,
                       width: 2,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surfaceVariant,
                       width: 1,
                     ),
                   ),
@@ -103,7 +106,7 @@ class _ActionPopupState extends State<ActionPopup> {
                       "Close",
                       style: Theme.of(context).textTheme.bodyMedium?.
                       copyWith(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold
                       ),
                     ),
@@ -123,7 +126,7 @@ class _ActionPopupState extends State<ActionPopup> {
                       widget.buttonText,
                       style: Theme.of(context).textTheme.bodyMedium?.
                       copyWith(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold
                       ),
                     ),
