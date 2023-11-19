@@ -88,8 +88,8 @@ class CategoriesScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            category(context, Category.householdEssentials, controller, 180, 110),
-            category(context, Category.frozenFoods, controller, 135, 110),
+            category(context, Category.householdEssentials, controller, 190, 110),
+            category(context, Category.frozenFoods, controller, 140, 110),
           ],
         ),
       ],

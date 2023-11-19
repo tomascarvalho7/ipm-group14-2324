@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
   final Widget? child;
@@ -7,7 +8,7 @@ class Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF2E2E2E),
+      color: Theme.of(context).colorScheme.background,
       child: CustomPaint(
         painter: VectorPainter(),
         child: child,

@@ -5,7 +5,7 @@ ThemeData syncShopDarkTheme = ThemeData(
     colorScheme: const ColorScheme(
       primary: Color(0xff2e7d44),
       secondary: Color(0xFFA89780),
-      surface: Colors.white,
+      surface: Colors.white70,
       surfaceVariant: Color(0xFF484848),
       background: Color(0xff2f2f2f),
       error: Color.fromRGBO(184, 61, 60, 1.0),
@@ -40,7 +40,7 @@ ThemeData syncShopLightTheme = ThemeData(
       primary: Color(0xff2e7d44),
       secondary: Color(0xff2f2f2f),
       surface: Color(0xff2f2f2f),
-      background: Colors.white,
+      background: Colors.white70,
       error: Color.fromRGBO(184, 61, 60, 1.0),
       onPrimary: Color(0xff2f2f2f),
       onSecondary: Colors.white,

@@ -25,24 +25,21 @@ Widget category(BuildContext context, Category category, CategoriesController ca
               categoryToImage(category)
           )
         ),
-        Expanded(
-            child: Container(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  categoryToName(category),
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 3
-                      ..color = Colors.black54,
-                  ),
-                )
+        Container(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              categoryToName(category),
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 3
+                  ..color = Colors.black54,
+              ),
             )
         ),
-        Expanded(
-            child: Container(
+        Container(
                 alignment: Alignment.bottomLeft,
                 child: Text(
                   categoryToName(category),
@@ -52,7 +49,6 @@ Widget category(BuildContext context, Category category, CategoriesController ca
                   ),
                 )
             )
-        )
       ]
     )
 );
