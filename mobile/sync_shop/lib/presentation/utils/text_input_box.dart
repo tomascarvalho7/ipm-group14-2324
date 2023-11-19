@@ -8,8 +8,19 @@ class TextInputBox extends StatelessWidget {
   final Function(String) onChange;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
+  Widget build(BuildContext context) => Container(
       height: height,
+      decoration: ShapeDecoration(
+        shape: const RoundedRectangleBorder(),
+        shadows: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
       child: TextFormField(
         // input
         onChanged: (String name) => onChange(name),
@@ -34,7 +45,6 @@ class TextInputBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(3)
           ),
         ),
-      )
-
+      ),
   );
 }
