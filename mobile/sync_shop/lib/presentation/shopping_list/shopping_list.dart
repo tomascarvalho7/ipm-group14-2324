@@ -14,7 +14,7 @@ class ShoppingList extends StatefulWidget {
   });
 
   final int listId;
-  final List<dynamic> items;
+  final List<dynamic>? items;
   final Future<void> Function() onRefresh;
 
   @override
@@ -36,12 +36,12 @@ class _ShoppingListState extends State<ShoppingList> {
     switch (action) {
       case Actions.delete:
         _showSnackBar('Item is deleted', Colors.red);
-        await service.deleteProduct(widget.listId, widget.items[index]['id']);
+        await service.deleteProduct(widget.listId, widget.items![index]['id']);
         break;
       case Actions.bought:
         _showSnackBar('Item is bought', Colors.green);
         await service.updateProduct(
-            widget.listId, widget.items[index]['id'], true);
+            widget.listId, widget.items![index]['id'], true);
         break;
     }
     await widget.onRefresh();
@@ -50,11 +50,17 @@ class _ShoppingListState extends State<ShoppingList> {
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final List<dynamic>? items = widget.items;
+    if (items == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return RefreshIndicator(
       displacement: 10,
       onRefresh: widget.onRefresh,
       child: ListView.builder(
-        itemCount: widget.items.length,
+        itemCount: items.length,
         itemBuilder: (context, index) {
           return Container(
             margin: const EdgeInsets.only(bottom: 10),
@@ -91,14 +97,13 @@ class _ShoppingListState extends State<ShoppingList> {
                 ],
               ),
               child: Container(
-                // rounded corners
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: ListTile(
                   title: Text(
-                    '${widget.items[index]['name']} (${widget.items[index]['categories'].toList().join('/')})',
+                    '${items[index]['name']} (${items[index]['categories'].toList().join('/')})',
                     style: TextStyle(
                       fontSize: 16,
                       color: colorScheme.background,
@@ -109,9 +114,9 @@ class _ShoppingListState extends State<ShoppingList> {
                     height: 30,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.items[index]['priority'] == 0
+                      color: items[index]['priority'] == 0
                           ? Colors.green
-                          : widget.items[index]['priority'] == 1
+                          : items[index]['priority'] == 1
                               ? Colors.yellow
                               : Colors.red,
                     ),

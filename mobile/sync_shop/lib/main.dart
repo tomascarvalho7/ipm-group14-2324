@@ -35,15 +35,14 @@ class MyApp extends StatelessWidget {
           Provider<UserStorage>(create: (_) => UserStorage()),
           ChangeNotifierProvider(create: (_) => CategoriesController()),
           ProxyProvider<UserStorage, RealService>(
-              update: (_, userStorage, __) => RealService(userStorage: userStorage)
-          ),
+              update: (_, userStorage, __) =>
+                  RealService(userStorage: userStorage)),
         ],
         child: MaterialApp.router(
-          title: 'Sync Shop',
+          title: 'SyncShop',
           theme: syncShopLightTheme,
           darkTheme: syncShopDarkTheme,
           routerConfig: createRouter(),
-        )
-    );
+        ));
   }
 }

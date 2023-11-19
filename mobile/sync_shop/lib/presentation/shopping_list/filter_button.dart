@@ -17,15 +17,15 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Material(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
       color: Colors.transparent,
       child: Ink(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
           color: colorScheme.surface,
         ),
         child: InkWell(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
           onTap: () async {
             final List<String>? newCategories =
                 await context.push('/categories');
@@ -36,16 +36,16 @@ class FilterButton extends StatelessWidget {
           },
           splashColor: Colors.grey.withOpacity(0.5),
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.filter_alt,
-                  size: 35,
+                  size: 25,
                   color: colorScheme.background,
                 ),
-                const SizedBox(width: 10),
                 Text('Filter',
                     style: TextStyle(
                       fontSize: 16,

@@ -21,7 +21,7 @@ class ShoppingListScreen extends StatefulWidget {
 }
 
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
-  List<dynamic> items = [];
+  List<dynamic>? items;
   List<dynamic> boughtItems = [];
   List<String> categories = [];
 
