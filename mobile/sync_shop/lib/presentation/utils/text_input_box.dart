@@ -17,13 +17,13 @@ class TextInputBox extends StatelessWidget {
         cursorColor: Theme.of(context).colorScheme.primary,
         style: TextStyle(
             fontSize: 22,
-            color: Theme.of(context).colorScheme.surface
+            color: Theme.of(context).colorScheme.surfaceVariant
         ),
         decoration: InputDecoration(
           filled: true,
-          fillColor: Theme.of(context).colorScheme.surfaceVariant, // Replace bg with your variable for background color
+          fillColor: Theme.of(context).colorScheme.surface, // Replace bg with your variable for background color
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.white54),
+          hintStyle: TextStyle(color: Theme.of(context).colorScheme.surfaceVariant),
           contentPadding: const EdgeInsets.all(15.0),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 7.5),

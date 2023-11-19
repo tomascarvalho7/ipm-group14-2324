@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-Widget logo() => Row(
+Widget logo(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,7 +21,7 @@ Widget logo() => Row(
       Text(
           'Shop',
           style: TextStyle(
-            color: Color(0xFFEADDD7),
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 40,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w600,
@@ -29,3 +30,5 @@ Widget logo() => Row(
       )
     ]
 );
+
+//Color(0xFFEADDD7)

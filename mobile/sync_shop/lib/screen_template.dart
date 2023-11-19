@@ -4,11 +4,12 @@ import 'package:sync_shop/presentation/background/background.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
 
 Widget buildScreenTemplateWidget(
-  BuildContext context,
-  String title,
-  List<Widget> childWidgets, {
-  bool showBackButton = true,
-  String? settingsRoute,
+      BuildContext context,
+      String title,
+      List<Widget> childWidgets, {
+      bool showBackButton = true,
+      String? settingsRoute,
+      VoidCallback? settingsAction,
 }) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
   return Scaffold(
@@ -16,7 +17,7 @@ Widget buildScreenTemplateWidget(
     body: SafeArea(
         child: Background(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -29,7 +30,7 @@ Widget buildScreenTemplateWidget(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           showBackButton ? ReturnBackButton(onPressed: (ctx) => ctx.pop()) : Container(),
-                          logo()
+                          logo(context)
                         ],
                       ),
                       settingsRoute != null
@@ -37,9 +38,9 @@ Widget buildScreenTemplateWidget(
                               icon: const Icon(
                                 Icons.more_horiz,
                               ),
-                              color: colorScheme.surface,
+                              color: colorScheme.surfaceVariant,
                               iconSize: 40,
-                              onPressed: () => context.push(settingsRoute),
+                              onPressed: () => context.push(settingsRoute).then((value) {settingsAction!();}),
                             )
                           : Container()
                     ],
@@ -82,7 +83,7 @@ class ReturnBackButton extends StatelessWidget {
         onPressed: () => onPressed(context),
         shape: const CircleBorder(),
         child: Icon(Icons.keyboard_arrow_left,
-            size: 35, color: Theme.of(context).colorScheme.background),
+            size: 35, color: Theme.of(context).colorScheme.surfaceVariant),
       ),
     );
   }

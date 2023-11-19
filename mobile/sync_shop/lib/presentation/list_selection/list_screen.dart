@@ -39,7 +39,7 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
       "My Lists",
       [
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 50, bottom: 100),
           child: GridView.builder(
             physics:
                 const ClampingScrollPhysics(), //not sure mas se der asneira logo se vê
@@ -53,12 +53,12 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
               final data = _lists[index];
               return ListItem(
                 onClick: () =>
-                    context.push('/lists/${data['id']}', extra: data['name']),
+                    context.push('/lists/${data['id']}', extra: data['name']).then((value) => _getLists()),
                 imageUrl: data['picture'] ?? "",
                 text: data['name'],
                 backgroundColor: Theme.of(context)
                     .colorScheme
-                    .surface, // Set your desired background color
+                    .surface,
               );
             },
           ),

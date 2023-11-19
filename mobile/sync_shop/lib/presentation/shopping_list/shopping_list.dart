@@ -63,7 +63,7 @@ class _ShoppingListState extends State<ShoppingList> {
         itemCount: items.length,
         itemBuilder: (context, index) {
           return Container(
-            margin: const EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 15),
             child: Slidable(
               key: UniqueKey(),
               startActionPane: ActionPane(
@@ -100,13 +100,21 @@ class _ShoppingListState extends State<ShoppingList> {
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: ListTile(
                   title: Text(
                     '${items[index]['name']} (${items[index]['categories'].toList().join('/')})',
                     style: TextStyle(
                       fontSize: 16,
-                      color: colorScheme.background,
+                      color: colorScheme.surfaceVariant,
                     ),
                   ),
                   trailing: Container(

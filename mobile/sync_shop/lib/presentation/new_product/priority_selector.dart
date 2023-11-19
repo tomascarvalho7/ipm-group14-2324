@@ -32,9 +32,9 @@ class PrioritySelector extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: colorScheme.onPrimary,
+              color: colorScheme.surface,
               border: Border.all(
-                color: Colors.black,
+                color: colorScheme.surfaceVariant,
               ),
             ),
             child: Row(

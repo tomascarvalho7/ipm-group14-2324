@@ -16,10 +16,11 @@ class TextInput extends StatelessWidget {
     return TextField(
       style: TextStyle(
         fontSize: 14.0,
-        color: colorScheme.background,
+        color: colorScheme.surfaceVariant,
       ),
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: TextStyle(color: colorScheme.surfaceVariant),
         contentPadding: const EdgeInsets.all(15.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),

@@ -19,6 +19,10 @@ class RectangularButton extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: colorScheme.surfaceVariant,
+              width: 1.0,
+            ),
           color: onPressed != null
               ? colorScheme.surface
               : colorScheme.surface.withOpacity(0.5),
@@ -35,8 +39,8 @@ class RectangularButton extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16,
                     color: onPressed != null
-                        ? colorScheme.background
-                        : colorScheme.background.withOpacity(0.5)),
+                        ? colorScheme.surfaceVariant
+                        : colorScheme.surfaceVariant.withOpacity(0.5)),
               ),
             ),
           ),

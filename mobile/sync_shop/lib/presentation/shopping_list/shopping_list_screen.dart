@@ -24,6 +24,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   List<dynamic>? items;
   List<dynamic> boughtItems = [];
   List<String> categories = [];
+  String? newListName;
 
   @override
   void initState() {
@@ -43,6 +44,14 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     });
   }
 
+  Future<void> _refreshListName() async {
+    RealService service = context.read<RealService>();
+    final newName = await service.getListName(widget.listId);
+    setState(() {
+      newListName = newName;
+    });
+  }
+
   void _setCategories(List<String> value) {
     setState(() {
       categories = value;
@@ -53,8 +62,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   Widget build(BuildContext context) {
     return buildScreenTemplateWidget(
       context,
-      widget.listName,
+      newListName ?? widget.listName,
       settingsRoute: '/list/${widget.listId}/settings',
+      settingsAction: () => _refreshListName().then((value) => _refreshLists()),
       [
         Stack(
           children: [
@@ -67,7 +77,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                   setCategories: _setCategories,
                   onRefresh: _refreshLists,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 Expanded(
                   child: ShoppingList(
                     listId: widget.listId,

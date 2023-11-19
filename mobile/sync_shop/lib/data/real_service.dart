@@ -124,6 +124,12 @@ class RealService {
     return listsResponse;
   }
 
+  Future<String> getListName(int listId) async {
+    final name =  await client.from('list').select('name').eq('id', listId).single();
+    print(name['name']);
+    return name['name'];
+  }
+
   Future<bool> joinList(String code) async {
     final user = await userStorage.getUser();
     if (user == null) {
@@ -150,7 +156,7 @@ class RealService {
   Future<void> createList(String name) async {
     final user = await userStorage.getUser();
     if (user == null) {
-      return; // TODO: Make him return to the main page
+      return;
     }
 
     const uuid = Uuid();
@@ -223,6 +229,7 @@ class RealService {
         .select()
         .eq("list_id", id)
         .eq("bought", true)
-        .order("date", ascending: true);
+        .order("date", ascending: true)
+        .limit(10);
   }
 }

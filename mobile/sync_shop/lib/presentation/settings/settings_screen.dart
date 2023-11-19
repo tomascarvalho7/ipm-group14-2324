@@ -78,10 +78,10 @@ class _SettingsState extends State<SettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      logo(),
-                      const SizedBox(width: 75),
                       // pop => return to previous screen
                       ReturnBackButton(onPressed: (ctx) => ctx.pop()),
+                      const SizedBox(width: 25),
+                      logo(context),
                     ],
                   ),
                   Text(
@@ -100,10 +100,10 @@ class _SettingsState extends State<SettingsScreen> {
             householdInputs(context, list, update),
             const SizedBox(height: 40),
             greenButton(
+                Theme.of(context).colorScheme.background,
                 onPressed: () {
-                  print(nameInput);
                   service.updateList(list.id, nameInput);
-                  context.pop();
+                  context.pop(nameInput);
                 }),
           ],
         ),
@@ -133,8 +133,16 @@ class _SettingsState extends State<SettingsScreen> {
         width: 150,
         height: 150,
         decoration: ShapeDecoration(
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surface,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          shadows: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: const Icon(Icons.camera_alt, size: 64,)
       );

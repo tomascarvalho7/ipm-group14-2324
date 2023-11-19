@@ -45,30 +45,34 @@ class _AddItemButtonState extends State<AddItemButton> {
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16.0),
-              ...widget.boughtItems.map(
-                (item) => ListTile(
-                  title: Text(
-                    item['name'],
-                    style: TextStyle(color: colorScheme.background),
-                  ),
-                  onTap: () {
-                    _readdItem(item['id']);
-                    Navigator.pop(context);
-                  },
+              Expanded(
+                child: ListView(
+                  children: widget.boughtItems.map(
+                        (item) => ListTile(
+                      title: Text(
+                        item['name'],
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      onTap: () {
+                        _readdItem(item['id']);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ).toList(),
                 ),
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  context.push("/lists/${widget.listId}/newProduct");
-                  Navigator.pop(context);
+                onPressed: () async {
+                  await context.push("/lists/${widget.listId}/newProduct");
+                  widget.onRefresh().then((value) => context.pop(context));
                 },
-                child: const Center(
+                child: Center(
                   child: Text(
                     'Add New Item',
                     style: TextStyle(
                       fontSize: 16.0,
-                      color: Color(0xFF006400),
+                      color: colorScheme.surface,
                     ),
                   ),
                 ),
@@ -92,7 +96,7 @@ class _AddItemButtonState extends State<AddItemButton> {
       },
       child: Icon(
         Icons.add,
-        color: colorScheme.surface,
+        color: colorScheme.surfaceVariant,
       ),
     );
   }

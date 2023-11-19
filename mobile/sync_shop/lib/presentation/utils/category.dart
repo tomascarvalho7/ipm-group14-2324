@@ -5,7 +5,7 @@ Widget category(BuildContext context, Category category, CategoriesController ca
     ElevatedButton(
     onPressed: () => categories.interact(category),
     style: ElevatedButton.styleFrom(
-      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(3),
           side: categories.isSelected(category) ? BorderSide(
@@ -45,7 +45,8 @@ Widget category(BuildContext context, Category category, CategoriesController ca
                   categoryToName(category),
                   style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary
                   ),
                 )
             )

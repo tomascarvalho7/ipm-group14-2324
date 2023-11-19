@@ -13,9 +13,6 @@ Widget buildConfirmButtonWidget(
       ),
       child: Text(
         text,
-        style: Theme.of(context).textTheme.bodyLarge?.
-        copyWith(
-          color: Theme.of(context).colorScheme.surface
-        ),
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );

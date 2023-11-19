@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget greenButton({required Function() onPressed}) => Container(
+Widget greenButton(Color textColor, {required Function() onPressed}) => Container(
   width: double.infinity,
   padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
   child: SizedBox(
@@ -15,7 +15,7 @@ Widget greenButton({required Function() onPressed}) => Container(
         child: Text(
           'Confirm',
           style: TextStyle(
-            color: Color(0xFF2E2E2E),
+            color: textColor,
             fontSize: 40,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w600,

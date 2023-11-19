@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: const EdgeInsets.only(top: 50),
                 child: Text('SyncShop',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
                         fontWeight: FontWeight.bold,
                         fontSize: 64)),
               ),
@@ -57,7 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(fontSize: 15, color: Colors.black),
+                                ?.copyWith(fontSize: 15, color: Theme.of(context).colorScheme.surfaceVariant),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: BorderSide(
@@ -75,14 +75,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           style: TextStyle(
                             fontSize: 15,
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surfaceVariant,
                           ),
                           maxLines: 1,
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           textAlign: TextAlign.start,
-                          cursorColor: Theme.of(context).colorScheme.background,
+                          cursorColor: Theme.of(context).colorScheme.surfaceVariant,
                           cursorWidth: 2.0,
                         ),
                       ),
@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(fontSize: 15, color: Colors.black),
+                                ?.copyWith(fontSize: 15, color: Theme.of(context).colorScheme.surfaceVariant),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: BorderSide(
@@ -116,14 +116,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           style: TextStyle(
                             fontSize: 15,
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surfaceVariant,
                           ),
                           maxLines: 1,
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           textAlign: TextAlign.start,
-                          cursorColor: Theme.of(context).colorScheme.background,
+                          cursorColor: Theme.of(context).colorScheme.surfaceVariant,
                           cursorWidth: 2.0,
                         ),
                       ),
@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(fontSize: 15, color: Colors.black),
+                                ?.copyWith(fontSize: 15, color: Theme.of(context).colorScheme.surfaceVariant),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: BorderSide(
@@ -173,14 +173,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           style: TextStyle(
                             fontSize: 15,
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surfaceVariant,
                           ),
                           maxLines: 1,
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           textAlign: TextAlign.start,
-                          cursorColor: Theme.of(context).colorScheme.background,
+                          cursorColor: Theme.of(context).colorScheme.surfaceVariant,
                           cursorWidth: 2.0,
                         ),
                       ),
@@ -197,7 +197,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   _passwordController.value.text)
                               .then((value) => value
                                   ? context.go("/lists")
-                                  : print("not change page"));
+                                  : {});
                         },
                         'Sign Up',
                       ),

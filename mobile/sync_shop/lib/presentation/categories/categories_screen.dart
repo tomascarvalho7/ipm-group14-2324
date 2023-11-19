@@ -36,7 +36,7 @@ class CategoriesScreen extends StatelessWidget {
                           ctx.pop();
                         }),
                         const SizedBox(width: 25),
-                        logo(),
+                        logo(context),
                       ],
                     ),
                     const Text(
@@ -55,7 +55,9 @@ class CategoriesScreen extends StatelessWidget {
                   height: 350,
                   child: categories(context)
               ),
-              greenButton(onPressed: () {
+              greenButton(
+                Theme.of(context).colorScheme.background,
+                  onPressed: () {
                 CategoriesController controller = context.read<CategoriesController>();
                 List<String> categoryLabels = controller.categories.map((e) => categoryToName(e)).toList();
                 controller.clear();
