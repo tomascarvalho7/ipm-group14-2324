@@ -75,7 +75,13 @@ class _NewProcuctScreenState extends State<NewProcuctScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: RectangularButton(
                   text: 'Categories',
-                  onPressed: () => context.push("/categories"),
+                  onPressed: () async {
+                    final List<String>? newCategories =
+                        await context.push('/categories');
+                    if (newCategories != null) {
+                      setCategories(newCategories);
+                    }
+                  },
                 ),
               ),
               const SizedBox(height: 20),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({
@@ -26,9 +27,12 @@ class FilterButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () async {
-            setCategories(["Vegetables", "Fruit"]);
-            await onRefresh();
-            // context.push('/categories');
+            final List<String>? newCategories =
+                await context.push('/categories');
+            if (newCategories != null) {
+              setCategories(newCategories);
+              await onRefresh();
+            }
           },
           splashColor: Colors.grey.withOpacity(0.5),
           child: Container(
