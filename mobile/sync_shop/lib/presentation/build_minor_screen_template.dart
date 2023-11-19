@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 Widget buildMinorScreenTemplate({required BuildContext context, required Widget child}) =>

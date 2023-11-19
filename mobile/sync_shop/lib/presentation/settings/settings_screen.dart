@@ -6,8 +6,8 @@ import 'package:sync_shop/domain/household.dart';
 import 'package:sync_shop/presentation/build_minor_screen_template.dart';
 import 'package:sync_shop/presentation/utils/green_button.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
-import 'package:sync_shop/presentation/utils/return_button.dart';
 
+import '../../screen_template.dart';
 import '../utils/copy_button.dart';
 import '../utils/text_input_box.dart';
 
@@ -81,7 +81,7 @@ class _SettingsState extends State<SettingsScreen> {
                       logo(),
                       const SizedBox(width: 75),
                       // pop => return to previous screen
-                      returnButton(context, () => context.pop()),
+                      const ReturnBackButton(),
                     ],
                   ),
                   Text(

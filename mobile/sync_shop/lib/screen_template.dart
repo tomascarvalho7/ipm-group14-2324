@@ -28,7 +28,7 @@ Widget buildScreenTemplateWidget(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          showBackButton ? const _BackButton() : Container(),
+                          showBackButton ? const ReturnBackButton() : Container(),
                           logo()
                         ],
                       ),
@@ -65,8 +65,8 @@ Widget buildScreenTemplateWidget(
   );
 }
 
-class _BackButton extends StatelessWidget {
-  const _BackButton();
+class ReturnBackButton extends StatelessWidget {
+  const ReturnBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sync_shop/domain/provider/categories_controller.dart';
 
-Widget category(BuildContext context, Category category, CategoriesController categories, double width, double height) => ElevatedButton(
+Widget category(BuildContext context, Category category, CategoriesController categories, double width, double height) =>
+    ElevatedButton(
     onPressed: () => categories.interact(category),
     style: ElevatedButton.styleFrom(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
@@ -15,7 +16,43 @@ Widget category(BuildContext context, Category category, CategoriesController ca
       maximumSize: Size(width, height),
       minimumSize: Size(width, height),
     ),
-    child: Image.asset(
-        'assets/SyncShopIcon.png',
+    child: Stack(
+      fit: StackFit.expand,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+          child: Image.asset(
+              categoryToImage(category)
+          )
+        ),
+        Expanded(
+            child: Container(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  categoryToName(category),
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 3
+                      ..color = Colors.black54,
+                  ),
+                )
+            )
+        ),
+        Expanded(
+            child: Container(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  categoryToName(category),
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),
+                )
+            )
+        )
+      ]
     )
 );

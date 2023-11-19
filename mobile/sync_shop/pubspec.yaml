@@ -95,6 +95,14 @@ flutter:
 
   assets:
     - assets/SyncShopIcon.png
+    - assets/bakery.png
+    - assets/dairy.png
+    - assets/foodsNVegetables.png
+    - assets/frozen_foods.png
+    - assets/generalItems.png
+    - assets/household_essentials.png
+    - assets/meatNFish.png
+    - assets/pantryStaples.png
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

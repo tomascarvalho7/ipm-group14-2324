@@ -6,8 +6,7 @@ import 'package:sync_shop/presentation/build_minor_screen_template.dart';
 import 'package:sync_shop/presentation/utils/green_button.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
 import 'package:sync_shop/presentation/utils/category.dart';
-
-import '../utils/return_button.dart';
+import 'package:sync_shop/screen_template.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -32,9 +31,9 @@ class CategoriesScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        const ReturnBackButton(),
+                        const SizedBox(width: 25),
                         logo(),
-                        const SizedBox(width: 75),
-                        returnButton(context, () => context.pop())
                       ],
                     ),
                     const Text(
@@ -65,24 +64,24 @@ class CategoriesScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            category(context, Category.generalGoods, controller, 110, 110),
-            category(context, Category.dairy, controller, 135, 110),
-            category(context, Category.meatFish, controller, 85, 110),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            category(context, Category.fruitsVegetables, controller, 135, 110),
-            category(context, Category.pantryStaples, controller, 85, 110),
             category(context, Category.bakery, controller, 110, 110),
+            category(context, Category.fruitsVegetables, controller, 135, 110),
+            category(context, Category.dairy, controller, 85, 110),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            category(context, Category.frozenFoods, controller, 200, 110),
-            category(context, Category.householdEssentials, controller, 135, 110),
+            category(context, Category.pantryStaples, controller, 115, 110),
+            category(context, Category.generalGoods, controller, 105, 110),
+            category(context, Category.meatFish, controller, 110, 110),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            category(context, Category.householdEssentials, controller, 200, 110),
+            category(context, Category.frozenFoods, controller, 135, 110),
           ],
         ),
       ],
