@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sync_shop/data/real_service.dart';
 import 'package:sync_shop/presentation/shopping_list/add_item_button.dart';
 import 'package:sync_shop/presentation/shopping_list/filter_button.dart';
+import 'package:sync_shop/presentation/shopping_list/remove_filters.dart';
 import 'package:sync_shop/presentation/shopping_list/shopping_list.dart';
 import 'package:sync_shop/screen_template.dart';
 
@@ -72,10 +73,20 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                FilterButton(
-                  categories: categories,
-                  setCategories: _setCategories,
-                  onRefresh: _refreshLists,
+                Row(
+                  children: [
+                    FilterButton(
+                      categories: categories,
+                      setCategories: _setCategories,
+                      onRefresh: _refreshLists,
+                    ),
+                    const SizedBox(width: 10),
+                    if (categories.isNotEmpty)
+                      RemoveFilters(removeFilters: () async {
+                        _setCategories([]);
+                        await _refreshLists();
+                      })
+                  ],
                 ),
                 const SizedBox(height: 20),
                 Expanded(

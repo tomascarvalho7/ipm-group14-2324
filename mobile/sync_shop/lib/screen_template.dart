@@ -4,65 +4,75 @@ import 'package:sync_shop/presentation/background/background.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
 
 Widget buildScreenTemplateWidget(
-      BuildContext context,
-      String title,
-      List<Widget> childWidgets, {
-      bool showBackButton = true,
-      String? settingsRoute,
-      VoidCallback? settingsAction,
+  BuildContext context,
+  String title,
+  List<Widget> childWidgets, {
+  bool showBackground = true,
+  bool showBackButton = true,
+  String? settingsRoute,
+  VoidCallback? settingsAction,
 }) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+  Widget screen = Container(
+    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    showBackButton
+                        ? ReturnBackButton(onPressed: (ctx) => ctx.pop())
+                        : Container(),
+                    logo(context)
+                  ],
+                ),
+                settingsRoute != null
+                    ? IconButton(
+                        icon: const Icon(
+                          Icons.more_horiz,
+                        ),
+                        color: colorScheme.surfaceVariant,
+                        iconSize: 40,
+                        onPressed: () =>
+                            context.push(settingsRoute).then((value) {
+                          settingsAction!();
+                        }),
+                      )
+                    : Container()
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 50),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: colorScheme.secondary,
+                  fontSize: 30,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Expanded(child: Stack(children: childWidgets)),
+      ],
+    ),
+  );
+
   return Scaffold(
     backgroundColor: colorScheme.background,
+    resizeToAvoidBottomInset: false,
     body: SafeArea(
-        child: Background(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          showBackButton ? ReturnBackButton(onPressed: (ctx) => ctx.pop()) : Container(),
-                          logo(context)
-                        ],
-                      ),
-                      settingsRoute != null
-                          ? IconButton(
-                              icon: const Icon(
-                                Icons.more_horiz,
-                              ),
-                              color: colorScheme.surfaceVariant,
-                              iconSize: 40,
-                              onPressed: () => context.push(settingsRoute).then((value) {settingsAction!();}),
-                            )
-                          : Container()
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: colorScheme.secondary,
-                        fontSize: 30,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(child: Stack(children: childWidgets)),
-            ]),
-      ),
-    )),
+      child: showBackground ? Background(child: screen) : screen,
+    ),
   );
 }
 
