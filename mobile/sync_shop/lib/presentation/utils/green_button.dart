@@ -1,21 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget greenButton(Color textColor, {required Function() onPressed}) =>
+Widget actionButton(Color color, Color textColor, String content, {required Function() onPressed}) =>
     Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: SizedBox(
-            height: 75,
+            height: 70,
             child: ElevatedButton(
                 onPressed: onPressed,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2E7D44),
+                  backgroundColor: color,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 child: Text(
-                  'Confirm',
+                  content,
                   style: TextStyle(
                     color: textColor,
                     fontSize: 40,

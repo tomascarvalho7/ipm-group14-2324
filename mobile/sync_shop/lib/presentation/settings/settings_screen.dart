@@ -59,18 +59,31 @@ class _SettingsState extends State<SettingsScreen> {
   }
 
   Widget visual(RealService service, ShoppingList list) => Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 50),
-          householdInputs(context, list, update),
-          const SizedBox(height: 40),
-          greenButton(Theme.of(context).colorScheme.background, onPressed: () {
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const SizedBox(height: 50),
+      householdInputs(context, list, update),
+      const SizedBox(height: 10),
+      actionButton(
+          Theme.of(context).colorScheme.primary,
+          Theme.of(context).colorScheme.background,
+          "Confirm",
+          onPressed: () {
             service.updateList(list.id, nameInput);
             context.pop(nameInput);
           }),
-        ],
-      );
+      actionButton(
+          Theme.of(context).colorScheme.error,
+          Theme.of(context).colorScheme.background,
+          "Leave List",
+          onPressed: () {
+            service.leaveFromList(list.id);
+            context.go('/lists', extra: true); // go back to lists screen
+          }),
+    ],
+  );
 
   Widget householdInputs(BuildContext context, ShoppingList household,
           Function(String) onChange) =>

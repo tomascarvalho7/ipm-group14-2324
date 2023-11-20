@@ -34,8 +34,10 @@ GoRouter createRouter() => GoRouter(initialLocation: "/", routes: [
           }),
       GoRoute(
           path: '/lists',
-          builder: (BuildContext context, GoRouterState state) =>
-              const ListSelectionScreen()),
+          builder: (BuildContext context, GoRouterState state) {
+            final shouldUpdate = state.extra == null ? false : true;
+            return ListSelectionScreen(shouldUpdate: shouldUpdate);
+          }),
       GoRoute(
         path: '/lists/:listId',
         builder: (BuildContext context, GoRouterState state) {

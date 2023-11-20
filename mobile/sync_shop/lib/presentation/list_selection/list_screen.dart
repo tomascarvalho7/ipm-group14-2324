@@ -8,7 +8,8 @@ import 'package:sync_shop/presentation/list_selection/list_item.dart';
 import 'package:sync_shop/screen_template.dart';
 
 class ListSelectionScreen extends StatefulWidget {
-  const ListSelectionScreen({Key? key}) : super(key: key);
+  ListSelectionScreen({Key? key, required this.shouldUpdate}) : super(key: key);
+  final bool shouldUpdate;
 
   @override
   State<ListSelectionScreen> createState() => _ListSelectionScreenState();
@@ -23,6 +24,12 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
   void initState() {
     super.initState();
     _getLists();
+  }
+
+  @override
+  void didUpdateWidget(covariant ListSelectionScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.shouldUpdate) _getLists();
   }
 
   Future<void> _getLists() async {

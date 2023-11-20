@@ -153,6 +153,21 @@ class RealService {
     return true;
   }
 
+  Future<bool> leaveFromList(int id) async {
+    final user = await userStorage.getUser();
+    if (user == null) {
+      return false;
+    }
+
+    final response = await client
+        .from('list_user')
+        .delete()
+        .eq('list_id', id)
+        .eq('user_id', user.id);
+
+    return true;
+  }
+
   Future<void> createList(String name) async {
     final user = await userStorage.getUser();
     if (user == null) {
