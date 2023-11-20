@@ -54,7 +54,8 @@ class _SettingsState extends State<SettingsScreen> {
                 }
               })
         ],
-        showBackground: false);
+        showBackground: false,
+        resizeToAvoidBottomInset: false);
   }
 
   Widget visual(RealService service, ShoppingList list) => Column(

@@ -11,6 +11,7 @@ Widget buildScreenTemplateWidget(
   bool showBackButton = true,
   String? settingsRoute,
   VoidCallback? settingsAction,
+  bool resizeToAvoidBottomInset = true,
 }) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
 
@@ -69,7 +70,7 @@ Widget buildScreenTemplateWidget(
 
   return Scaffold(
     backgroundColor: colorScheme.background,
-    resizeToAvoidBottomInset: false,
+    resizeToAvoidBottomInset: resizeToAvoidBottomInset,
     body: SafeArea(
       child: showBackground ? Background(child: screen) : screen,
     ),
