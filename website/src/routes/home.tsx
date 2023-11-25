@@ -53,6 +53,8 @@ export function Home() {
         <ContentItem element={ <Stage stageNr={1} description="Project Proposal"/> }  />
         <ContentItem element={ <Stage stageNr={2} description="User and Task Analysis"/> }  />
         <ContentItem element={ <Stage stageNr={3} description="First Prototype"/> }  />
+        <ContentItem element={ <Stage stageNr={4} description="Computational Prototype"/> }  />
+        <ContentItem element={ <Stage stageNr={5} description="Heuristic Evaluation"/> }  />
       </div>
       
     </div>

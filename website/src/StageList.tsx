@@ -26,7 +26,7 @@ export function StageList(props: { showInfo: () => void; }) {
 
   return (
     <div className="stagelist">
-      {[1, 2, 3].map((stageNr) => (
+      {[1, 2, 3, 4, 5].map((stageNr) => (
         <div key={stageNr} className="stage" onClick={() => handleStageClick(stageNr)}>   
           Stage {stageNr}
         </div>
