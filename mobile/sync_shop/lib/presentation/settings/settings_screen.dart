@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sync_shop/data/real_service.dart';
@@ -8,6 +9,7 @@ import 'package:sync_shop/presentation/utils/copy_button.dart';
 import 'package:sync_shop/presentation/utils/green_button.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
 import 'package:sync_shop/presentation/utils/text_input_box.dart';
+import 'package:sync_shop/providers/feedback_controller.dart';
 import 'package:sync_shop/screen_template.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -37,6 +39,7 @@ class _SettingsState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final RealService service = context.read<RealService>();
+    final feedback = context.read<FeedbackController>();
 
     return buildScreenTemplateWidget(
         context,
@@ -48,7 +51,7 @@ class _SettingsState extends State<SettingsScreen> {
                 ShoppingList? list = snapshot.data;
                 if (list != null) {
                   nameInput = list.name;
-                  return visual(service, snapshot.data!);
+                  return visual(service, snapshot.data!, feedback);
                 } else {
                   return Container();
                 }
@@ -58,19 +61,20 @@ class _SettingsState extends State<SettingsScreen> {
         resizeToAvoidBottomInset: false);
   }
 
-  Widget visual(RealService service, ShoppingList list) => Column(
+  Widget visual(RealService service, ShoppingList list, FeedbackController controller) => Column(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       const SizedBox(height: 50),
-      householdInputs(context, list, update),
+      householdInputs(context, list, update, controller),
       const SizedBox(height: 10),
       actionButton(
           Theme.of(context).colorScheme.primary,
           Theme.of(context).colorScheme.background,
           "Confirm",
           onPressed: () {
+            controller.setSuccessful("Updated list successfully.");
             service.updateList(list.id, nameInput);
             context.pop(nameInput);
           }),
@@ -79,6 +83,7 @@ class _SettingsState extends State<SettingsScreen> {
           Theme.of(context).colorScheme.background,
           "Leave List",
           onPressed: () {
+            controller.setSuccessful("Left list successfully.");
             service.leaveFromList(list.id);
             context.go('/lists', extra: true); // go back to lists screen
           }),
@@ -86,7 +91,7 @@ class _SettingsState extends State<SettingsScreen> {
   );
 
   Widget householdInputs(BuildContext context, ShoppingList household,
-          Function(String) onChange) =>
+          Function(String) onChange, FeedbackController controller) =>
       SizedBox(
         height: 330,
         child: Column(
@@ -94,7 +99,17 @@ class _SettingsState extends State<SettingsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 55, child: copyButton(context, household.url)),
+            SizedBox(
+                height: 55,
+                child: copyButton(
+                    context,
+                    household.url,
+                    (content) {
+                      controller.setSuccessful("Copied list code to clipboard.");
+                      Clipboard.setData(ClipboardData(text: content));
+                    }
+                )
+            ),
             const SizedBox(height: 35),
             TextInputBox(
                 hintText: household.name, height: 55, onChange: onChange),

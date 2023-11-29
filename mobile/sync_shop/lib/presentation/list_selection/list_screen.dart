@@ -5,6 +5,7 @@ import 'package:sync_shop/data/real_service.dart';
 import 'package:sync_shop/presentation/list_selection/action_pop_up.dart';
 import 'package:sync_shop/presentation/list_selection/add_buttons.dart';
 import 'package:sync_shop/presentation/list_selection/list_item.dart';
+import 'package:sync_shop/providers/feedback_controller.dart';
 import 'package:sync_shop/screen_template.dart';
 
 class ListSelectionScreen extends StatefulWidget {
@@ -40,6 +41,7 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final services = Provider.of<RealService>(context);
+    final feedback = context.read<FeedbackController>();
 
     return buildScreenTemplateWidget(
       context,
@@ -102,9 +104,12 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
           onClick: (value) {
             services.joinList(value).then((value) {
               if (value) {
+                feedback.setSuccessful("Joined shopping list successfully!");
                 _getLists();
                 _isJoinPopupVisible = false;
                 _isCreatePopupVisible = false;
+              } else {
+                feedback.setError("Given shopping list could not be found.");
               }
             });
           },

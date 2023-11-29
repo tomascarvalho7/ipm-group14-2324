@@ -6,6 +6,9 @@ import 'package:sync_shop/presentation/auth/utils/clickable_text.dart';
 import 'package:sync_shop/presentation/auth/utils/confirm_button.dart';
 import 'package:sync_shop/presentation/background/background.dart';
 
+import '../../../providers/feedback_controller.dart';
+import '../utils/verifications.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -23,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     RealService services = Provider.of<RealService>(context, listen: false);
+    FeedbackController feedback = Provider.of<FeedbackController>(context, listen: false);
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -190,14 +194,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       buildConfirmButtonWidget(
                         context,
                         () {
-                          services
-                              .signUp(
-                                  _emailController.value.text,
-                                  _nameController.value.text,
-                                  _passwordController.value.text)
-                              .then((value) => value
-                                  ? context.go("/lists")
-                                  : {});
+                          String email = _emailController.value.text;
+                          String password = _passwordController.value.text;
+                          String name = _nameController.value.text;
+                          if (verifyEmail(feedback, email, false) && verifyPassword(feedback, password, false)) {
+                            services
+                                .signUp(email, name, password)
+                                .then(
+                                    (value) {
+                                  if (value) {
+                                    feedback.setSuccessful("Signed up successfully!");
+                                    context.go("/lists");
+                                  } else {
+                                    feedback.setError("Something went wrong.");
+                                  }
+                                }
+                            );
+                          }
                         },
                         'Sign Up',
                       ),
