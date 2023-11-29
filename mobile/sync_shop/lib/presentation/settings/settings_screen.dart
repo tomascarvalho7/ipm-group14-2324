@@ -3,10 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sync_shop/data/real_service.dart';
 import 'package:sync_shop/domain/household.dart';
-import 'package:sync_shop/presentation/build_minor_screen_template.dart';
 import 'package:sync_shop/presentation/utils/copy_button.dart';
 import 'package:sync_shop/presentation/utils/green_button.dart';
-import 'package:sync_shop/presentation/utils/logo.dart';
 import 'package:sync_shop/presentation/utils/text_input_box.dart';
 import 'package:sync_shop/screen_template.dart';
 
@@ -59,49 +57,44 @@ class _SettingsState extends State<SettingsScreen> {
   }
 
   Widget visual(RealService service, ShoppingList list) => Column(
-    mainAxisSize: MainAxisSize.max,
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      const SizedBox(height: 50),
-      householdInputs(context, list, update),
-      const SizedBox(height: 10),
-      actionButton(
-          Theme.of(context).colorScheme.primary,
-          Theme.of(context).colorScheme.background,
-          "Confirm",
-          onPressed: () {
-            service.updateList(list.id, nameInput);
-            context.pop(nameInput);
-          }),
-      actionButton(
-          Theme.of(context).colorScheme.error,
-          Theme.of(context).colorScheme.background,
-          "Leave List",
-          onPressed: () {
-            service.leaveFromList(list.id);
-            context.go('/lists', extra: true); // go back to lists screen
-          }),
-    ],
-  );
-
-  Widget householdInputs(BuildContext context, ShoppingList household,
-          Function(String) onChange) =>
-      SizedBox(
-        height: 330,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 55, child: copyButton(context, household.url)),
-            const SizedBox(height: 35),
-            TextInputBox(
-                hintText: household.name, height: 55, onChange: onChange),
-            const SizedBox(height: 35),
-            inputImage()
-          ],
-        ),
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 55, child: copyButton(context, list.url)),
+              const SizedBox(height: 10),
+              TextInputBox(hintText: list.name, height: 55, onChange: update),
+            ],
+          ),
+          inputImage(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              actionButton(
+                Theme.of(context).colorScheme.primary,
+                "Confirm",
+                context,
+                onPressed: () {
+                  service.updateList(list.id, nameInput);
+                  context.pop(nameInput);
+                },
+              ),
+              const SizedBox(height: 10),
+              actionButton(
+                Theme.of(context).colorScheme.error,
+                "Leave List",
+                context,
+                onPressed: () {
+                  service.leaveFromList(list.id);
+                  context.go('/lists', extra: true); // go back to lists screen
+                },
+              ),
+            ],
+          ),
+        ],
       );
 
   Widget inputImage() => Container(

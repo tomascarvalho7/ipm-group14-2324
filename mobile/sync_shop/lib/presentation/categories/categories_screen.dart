@@ -21,18 +21,19 @@ class CategoriesScreen extends StatelessWidget {
             children: [
               SizedBox(height: 350, child: categories(context)),
               actionButton(
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.background,
-                  "Confirm",
-                  onPressed: () {
-                CategoriesController controller =
-                    context.read<CategoriesController>();
-                List<String> categoryLabels = controller.categories
-                    .map((e) => categoryToName(e))
-                    .toList();
-                controller.clear();
-                context.pop(categoryLabels);
-              }),
+                Theme.of(context).colorScheme.primary,
+                "Confirm",
+                context,
+                onPressed: () {
+                  CategoriesController controller =
+                      context.read<CategoriesController>();
+                  List<String> categoryLabels = controller.categories
+                      .map((e) => categoryToName(e))
+                      .toList();
+                  controller.clear();
+                  context.pop(categoryLabels);
+                },
+              ),
             ],
           )
         ],
