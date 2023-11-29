@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as supa;
 import 'package:sync_shop/app-theme.dart';
 import 'package:sync_shop/config/create_router.dart';
 import 'package:sync_shop/data/real_service.dart';
+import 'package:sync_shop/providers/feedback_controller.dart';
 import 'package:sync_shop/providers/user_storage.dart';
 
 import 'config.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           Provider<UserStorage>(create: (_) => UserStorage()),
+          ChangeNotifierProvider(create: (_) => FeedbackController()),
           ChangeNotifierProvider(create: (_) => CategoriesController()),
           ProxyProvider<UserStorage, RealService>(
               update: (_, userStorage, __) =>

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-Widget copyButton(BuildContext context, String content) => ElevatedButton(
+Widget copyButton(BuildContext context, String content, void Function(String) onClick) => ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
       shadowColor: Theme.of(context).colorScheme.onSurface
     ),
-    onPressed: (){
-      Clipboard.setData(ClipboardData(text: content));
-    },
+    onPressed: () => onClick(content),
     child: Row(
       children: [
         Icon(Icons.copy, size: 35, color: Theme.of(context).colorScheme.surfaceVariant),

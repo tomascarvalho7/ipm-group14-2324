@@ -133,18 +133,14 @@ class RealService {
   Future<bool> joinList(String code) async {
     final user = await userStorage.getUser();
     if (user == null) {
-      return false; // TODO: Make him return to the main page
-    }
-
-    final response =
-        await client.from('list').select('id').eq('code', code).single();
-
-    final Map<String, dynamic> data = response as Map<String, dynamic>;
-
-    if (data.isEmpty) {
-      // no list found for that code
       return false;
     }
+
+    final response = await client.from('list').select('id').eq('code', code).maybeSingle();
+
+    if (response == null) return false;
+
+    final Map<String, dynamic> data = response as Map<String, dynamic>;
 
     await client.from('list_user').insert({
       "list_id": data['id'],

@@ -5,6 +5,9 @@ import 'package:sync_shop/data/real_service.dart';
 import 'package:sync_shop/presentation/auth/utils/clickable_text.dart';
 import 'package:sync_shop/presentation/auth/utils/confirm_button.dart';
 import 'package:sync_shop/presentation/background/background.dart';
+import 'package:sync_shop/providers/feedback_controller.dart';
+
+import '../utils/verifications.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -22,6 +25,7 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     RealService services = Provider.of<RealService>(context, listen: false);
+    FeedbackController feedback = Provider.of<FeedbackController>(context, listen: false);
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -148,10 +152,22 @@ class _LogInScreenState extends State<LogInScreen> {
                       buildConfirmButtonWidget(
                         context,
                         () {
-                          services
-                              .logIn(_emailController.value.text,
-                                  _passwordController.value.text)
-                              .then((value) => value ? context.go("/lists") : {});
+                          String email = _emailController.value.text;
+                          String password = _passwordController.value.text;
+                          if (verifyEmail(feedback, email, true) && verifyPassword(feedback, password, true)) {
+                            services
+                                .logIn(email, password)
+                                .then(
+                                    (value) {
+                                      if (value) {
+                                        feedback.setSuccessful("Logged in successfully.");
+                                        context.go("/lists");
+                                      } else {
+                                        feedback.setError("Something went wrong.");
+                                      }
+                                    }
+                            );
+                          }
                         },
                         'Log In',
                       ),

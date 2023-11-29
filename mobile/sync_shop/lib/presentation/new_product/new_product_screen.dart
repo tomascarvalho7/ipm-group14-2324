@@ -7,6 +7,8 @@ import 'package:sync_shop/presentation/utils/rectangular_button.dart';
 import 'package:sync_shop/presentation/utils/text_input.dart';
 import 'package:sync_shop/screen_template.dart';
 
+import '../../providers/feedback_controller.dart';
+
 class NewProcuctScreen extends StatefulWidget {
   const NewProcuctScreen({super.key, required this.listId});
 
@@ -53,6 +55,8 @@ class _NewProcuctScreenState extends State<NewProcuctScreen> {
   @override
   Widget build(BuildContext context) {
     RealService services = Provider.of<RealService>(context, listen: false);
+    final feedback = context.read<FeedbackController>();
+
     return buildScreenTemplateWidget(context, 'New Product', [
       Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -101,20 +105,21 @@ class _NewProcuctScreenState extends State<NewProcuctScreen> {
                       _categories.isNotEmpty &&
                       !_isLoading
                   ? () {
-                      setIsLoading(true);
-                      services
-                          .insertProduct(
-                        widget.listId,
-                        _productName,
-                        _categories,
-                        _priority,
-                      )
-                          .then((value) {
-                        setIsLoading(false);
-                        context.pop();
-                      });
-                    }
-                  : null,
+                setIsLoading(true);
+                services
+                    .insertProduct(
+                  widget.listId,
+                  _productName,
+                  _categories,
+                  _priority,
+                )
+                    .then((value) {
+                  feedback.setSuccessful("Succesfully added product: $_productName to list!");
+                  setIsLoading(false);
+                  context.pop();
+                });
+              }
+                  : () => feedback.setError("Incomplete product. Please assign a name and category to the product you wish to add"),
             ),
           ),
         ],
