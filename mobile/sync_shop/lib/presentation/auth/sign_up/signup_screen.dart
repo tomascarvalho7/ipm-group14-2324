@@ -53,8 +53,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: 303,
                         height: 70,
                         child: TextField(
+                          maxLength: 30,
                           controller: _nameController,
                           decoration: InputDecoration(
+                            counter: const SizedBox.shrink(),
                             filled: true,
                             fillColor: Theme.of(context).colorScheme.surface,
                             hintText: 'name...',
@@ -222,7 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         () {
                           context.go("/");
                         },
-                        "Don't have an account?\nGo back.",
+                        "Already have an account?\nGo back.",
                       ),
                     ],
                   ))

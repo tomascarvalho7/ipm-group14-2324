@@ -89,6 +89,14 @@ class _NewProcuctScreenState extends State<NewProcuctScreen> {
                 ),
               ),
               const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: CategoriesList(categories: _categories),
+                ),
+              ),
+              const SizedBox(height: 20),
               PrioritySelector(
                 selectedPriority: _priority,
                 onChanged: setPriority,
@@ -125,5 +133,39 @@ class _NewProcuctScreenState extends State<NewProcuctScreen> {
         ],
       )
     ]);
+  }
+}
+
+class CategoriesList extends StatelessWidget {
+  final List<String> categories;
+
+  const CategoriesList({super.key, required this.categories});
+
+  @override
+  Widget build(BuildContext context) {
+    return categories.isEmpty
+        ? const Text('No selected categories')
+        : Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const Text(
+          'Selected categories',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+          ),
+        ),
+        const SizedBox(
+          height: 8.0,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: categories.map((category) {
+            return Text(category);
+          }).toList(),
+        ),
+      ],
+    );
   }
 }

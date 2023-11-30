@@ -22,6 +22,7 @@ class TextInputBox extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        maxLength: 40,
         // input
         onChanged: (String name) => onChange(name),
         // decoration
@@ -31,6 +32,7 @@ class TextInputBox extends StatelessWidget {
             color: Theme.of(context).colorScheme.surfaceVariant
         ),
         decoration: InputDecoration(
+          counterText: '',
           filled: true,
           fillColor: Theme.of(context).colorScheme.surface, // Replace bg with your variable for background color
           hintText: hintText,

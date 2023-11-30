@@ -137,6 +137,7 @@ class _ListSelectionScreenState extends State<ListSelectionScreen> {
         )
       ],
       showBackButton: false,
+      showLogoutButton: true
     );
   }
 }

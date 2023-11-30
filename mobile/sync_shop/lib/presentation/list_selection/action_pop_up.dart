@@ -64,12 +64,14 @@ class _ActionPopupState extends State<ActionPopup> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
+                maxLength: 40,
                 controller: _listController,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 15,
                     color: Theme.of(context).colorScheme.surfaceVariant
                 ),
                 decoration: InputDecoration(
+                  counter: const SizedBox.shrink(),
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.surface,
                   hintText: widget.textFieldText,

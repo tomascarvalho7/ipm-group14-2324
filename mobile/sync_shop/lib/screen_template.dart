@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:sync_shop/presentation/background/background.dart';
 import 'package:sync_shop/presentation/utils/logo.dart';
+import 'package:sync_shop/providers/user_storage.dart';
 
 Widget buildScreenTemplateWidget(
   BuildContext context,
@@ -9,11 +11,14 @@ Widget buildScreenTemplateWidget(
   List<Widget> childWidgets, {
   bool showBackground = true,
   bool showBackButton = true,
+  bool showLogoutButton = false,
   String? settingsRoute,
   VoidCallback? settingsAction,
   bool resizeToAvoidBottomInset = true,
 }) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
+  final userStorage = context.read<UserStorage>();
+
 
   Widget screen = Container(
     margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
@@ -46,6 +51,19 @@ Widget buildScreenTemplateWidget(
                           settingsAction!();
                         }),
                       )
+                    : Container(),
+                showLogoutButton != false
+                    ? IconButton(
+                  icon: const Icon(
+                    Icons.logout,
+                  ),
+                  color: colorScheme.surfaceVariant,
+                  iconSize: 40,
+                  onPressed: () {
+                    userStorage.deleteUser();
+                    context.pushReplacement("/");
+                  },
+                )
                     : Container()
               ],
             ),
