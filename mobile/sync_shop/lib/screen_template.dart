@@ -19,7 +19,6 @@ Widget buildScreenTemplateWidget(
   ColorScheme colorScheme = Theme.of(context).colorScheme;
   final userStorage = context.read<UserStorage>();
 
-
   Widget screen = Container(
     margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
     child: Column(
@@ -51,20 +50,19 @@ Widget buildScreenTemplateWidget(
                           settingsAction!();
                         }),
                       )
-                    : Container(),
-                showLogoutButton != false
-                    ? IconButton(
-                  icon: const Icon(
-                    Icons.logout,
-                  ),
-                  color: colorScheme.surfaceVariant,
-                  iconSize: 40,
-                  onPressed: () {
-                    userStorage.deleteUser();
-                    context.pushReplacement("/");
-                  },
-                )
-                    : Container()
+                    : showLogoutButton != false
+                        ? IconButton(
+                            icon: const Icon(
+                              Icons.logout,
+                            ),
+                            color: colorScheme.surfaceVariant,
+                            iconSize: 40,
+                            onPressed: () {
+                              userStorage.deleteUser();
+                              context.pushReplacement("/");
+                            },
+                          )
+                        : Container()
               ],
             ),
             Container(
